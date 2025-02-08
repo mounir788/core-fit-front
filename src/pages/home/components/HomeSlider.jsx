@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const SliderContainer = styled.div`
@@ -29,17 +30,40 @@ const Slider = styled.div`
     width: 100%;
     object-fit: cover;
   }
+  transition: margin-left 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  margin-left: ${({ $marginLift }) => $marginLift}%;
 `;
 
 const HomeSlider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliders = [
+    {
+      imageSrc: "/slide1.jpg",
+      alt: "playground",
+    },
+    {
+      imageSrc: "/slide2.jpg",
+      alt: "e-commerce",
+    },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % sliders.length);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [sliders.length]);
+
   return (
     <SliderContainer>
-      <Slider>
-        <img src="/slide1.jpg" alt="playground" />
-      </Slider>
-      <Slider>
-        <img src="/slide2.jpg" alt="e-commerce" />
-      </Slider>
+      {sliders.map((slide, index) => (
+        <Slider
+          key={slide.imageSrc}
+          $marginLift={index === 0 && currentSlide * -100}
+        >
+          <img src={slide.imageSrc} alt={slide.alt} />
+        </Slider>
+      ))}
     </SliderContainer>
   );
 };

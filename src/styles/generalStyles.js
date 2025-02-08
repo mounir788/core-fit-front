@@ -36,6 +36,16 @@ export const AuthForm = styled.form`
   border: 1px solid var(--gray700);
   width: 35%;
   margin: auto;
+
+  @media (width <= 1048px) {
+    width: 50%;
+  }
+  @media (width <= 768px) {
+    width: 90%;
+  }
+  @media (width <= 460px) {
+    padding: 50px 20px;
+  }
 `;
 
 export const FormInputsContainer = styled.div`
@@ -129,4 +139,11 @@ export const Box = styled.div`
       }
     }
   }
+`;
+
+export const MainContainer = styled.div`
+  max-width: 1420px;
+  width: 100%;
+  padding-inline: 1rem;
+  margin: auto;
 `;

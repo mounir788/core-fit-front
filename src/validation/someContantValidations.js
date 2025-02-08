@@ -27,12 +27,3 @@ export const emailDomainValidation = {
     value.endsWith("@yahoo.com") ||
     "Only Gmail or Yahoo domains are allowed", // Optional, remove if not needed
 };
-
-export const validateLeaveTime = (value, startTime) => {
-  if (!startTime) return true; // No validation needed if startTime is not set.
-
-  const startDate = new Date(`1970-01-01T${startTime}`);
-  const endDate = new Date(`1970-01-01T${value}`);
-
-  return endDate > startDate || "End time must be after start time";
-};

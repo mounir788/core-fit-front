@@ -35,6 +35,8 @@ const OutlinedButton = styled(ButtonBase)`
         color: #ffffff;
       }
     `}
+
+  ${(props) => props.$customStyle}
 `;
 
 const FilledButton = styled(ButtonBase)`
@@ -48,9 +50,12 @@ const FilledButton = styled(ButtonBase)`
     css`
       &:hover {
         background: ${({ $colorfilled }) =>
-          $colorfilled === "red" ? "var(--darkRed)" : "var(--darkBlue)"};
+          $colorfilled === "red" ? "var(--darkRed)" : "white"};
+        color: var(--mainColor);
       }
     `}
+
+  ${(props) => props.$customStyle}
 `;
 
 const DisabledButton = styled(ButtonBase)`
@@ -67,10 +72,6 @@ const ButtonText = styled.p`
 
   ${(props) => props.$textstyle}
   white-space: nowrap;
-
-  @media only screen and (max-width: 1400px) {
-    font-size: 12px;
-  }
 `;
 
 const MainButton = ({

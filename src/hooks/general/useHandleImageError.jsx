@@ -17,7 +17,7 @@ export const useHandleImageError = () => {
 
   const addDefaultBackground = (ev) => {
     // ev.target.src = "/fallback-image.webp";
-    ev.target.src = "/images/fallback-image.svg";
+    ev.target.src = "/fallback-image.svg";
     // ev.target.src = "/public/not-found-image.webp";
   };
 

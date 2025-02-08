@@ -4,6 +4,7 @@ import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import MainLayout from "../layout/MainLayout";
 import HomePage from "../pages/home/HomePage";
+import StoresPage from "../pages/stores/StoresPage";
 
 const AppRoutes = () => {
   return (
@@ -21,7 +22,9 @@ const AppRoutes = () => {
               <MainLayout />
             </AuthenticatorRoute>
           }
-        ></Route>
+        >
+          <Route path="stores" element={<StoresPage />} />
+        </Route>
       </Routes>
     </>
   );

@@ -21,17 +21,29 @@ const RemberMeCheckboxLabel = styled.label`
 
   font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.66rem;
+  line-height: 1.8;
   color: var(--gray700);
+
+  & input {
+    accent-color: var(--mainColor);
+  }
+
+  @media (width <= 460px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const TextLink = styled(Link)`
   font-size: 0.875rem;
   font-weight: ${({ $weight }) => $weight || 400};
-  line-height: 1.66rem;
+  line-height: 1.8;
   text-align: left;
   color: var(--mainColor);
   text-decoration: underline;
+
+  @media (width <= 460px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const ErrorMessageText = styled.p`
@@ -136,11 +148,14 @@ const LoginForm = () => {
           isDisabled={isPending}
           customStyle={css`
             width: 100%;
+            &:hover {
+              border: 1px solid var(--mainColor);
+            }
           `}
         />
 
         <p>
-          Don't have an account?{" "}
+          Don't have an account?
           <TextLink to={"/register"} $weight="600">
             Create account
           </TextLink>

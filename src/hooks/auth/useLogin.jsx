@@ -11,7 +11,7 @@ const useLogin = () => {
       // Handle successful login, save token
       sessionStorage.setItem("authToken", data.token);
 
-      navigate("/");
+      navigate("/dashboard");
     },
     onError: (error) => {
       console.error("Login error:", error);
