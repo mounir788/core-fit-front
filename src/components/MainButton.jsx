@@ -51,7 +51,12 @@ const FilledButton = styled(ButtonBase)`
       &:hover {
         background: ${({ $colorfilled }) =>
           $colorfilled === "red" ? "var(--darkRed)" : "white"};
-        color: var(--mainColor);
+        color: ${({ $colorfilled }) =>
+          $colorfilled === "red" ? "white" : "var(--mainColor)"};
+        border: ${({ $colorfilled }) =>
+          $colorfilled === "red"
+            ? "1 px solid transparent"
+            : "1px solid var(--mainColor)"};
       }
     `}
 
@@ -82,7 +87,6 @@ const MainButton = ({
   colorfilled,
   textcolorfilled,
   disableHover = false,
-  type = "button",
   isLoading = false,
   isDisabled = false,
   customStyle = "",
@@ -100,7 +104,6 @@ const MainButton = ({
       $colorfilled={colorfilled}
       $textcolorfilled={textcolorfilled}
       $disableHover={disableHover}
-      $type={type}
       $isLoading={isLoading}
       $disabled={isDisabled}
       $customStyle={customStyle}

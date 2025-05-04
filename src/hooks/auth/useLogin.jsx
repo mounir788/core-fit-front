@@ -9,7 +9,7 @@ const useLogin = () => {
     mutationFn: (credintial) => loginApi(credintial),
     onSuccess: (data) => {
       // Handle successful login, save token
-      sessionStorage.setItem("authToken", data.token);
+      sessionStorage.setItem("authToken", data.data.token);
 
       navigate("/dashboard");
     },

@@ -25,13 +25,13 @@ export default function BasicDatePicker({ onChange, defaultValue }) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DatePicker"]}>
             <DatePicker
-              format="DD/MM/YYYY" // Custom format for the date picker
+              format="YYYY-MM-DD" // Custom format for the date picker
               showDaysOutsideCurrentMonth
               defaultValue={parsedDefaultValue} // Set the parsed default value
               componentsProps={{
                 openPickerButton: {
                   sx: {
-                    color: "var(--buttonActive)", // Customize the button color
+                    color: "var(--mainColor)", // Customize the button color
                   },
                 },
               }}
@@ -45,6 +45,8 @@ export default function BasicDatePicker({ onChange, defaultValue }) {
                   color: "var(--gray400)", // Customize input text color
                 },
                 "& .MuiOutlinedInput-root": {
+                  borderRadius: "8px",
+                  background: "var(--gray100)",
                   "& fieldset": {
                     borderColor: "var(--gray300)", // Customize border color
                     borderRadius: "8px",
@@ -53,7 +55,8 @@ export default function BasicDatePicker({ onChange, defaultValue }) {
                     borderColor: "var(--gray300)", // Customize hover border color
                   },
                   "&.Mui-focused fieldset": {
-                    borderColor: "black", // Customize focused border color
+                    borderWidth: "1px",
+                    borderColor: "var(--mainColor)", // Customize focused border color
                   },
                 },
               }}

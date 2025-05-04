@@ -18,8 +18,8 @@ const Message = styled.span`
 
 export const ToastContent = ({ title, message }) => {
   return (
-    <Flex gap={8} direction="column" className="w-full">
-      <Flex justify="space-between" align="center">
+    <Flex $gap={8} $direction="column" className="w-full">
+      <Flex $justify="space-between" $align="center">
         <Title>{title}</Title>
         <button onClick={() => toast.dismiss()}>
           <CgClose />

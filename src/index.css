@@ -6,14 +6,19 @@
   -moz-osx-font-smoothing: grayscale;
 
   --pageSectionsGap: 1.25rem;
-
+  --second: #0e7967;
   --mainColor: #1a9d56;
+  --lightGreen: #c7f0da;
+  --midGreen: #eefbf4;
   --darkBlue: #0435b2;
   --buttonRed: #ff3b30;
   --darkRed: #d92920;
   --astrecRed: #d01208;
 
-  --gray10: #f4f7fe;
+  --dark: #231f20;
+
+  --gray10: #f2f2f2;
+  --gray20: #f8f8f8;
   --gray50: #f9fcfe;
   --gray100: #f3f4f6;
   --gray200: #e5e7eb;
@@ -82,4 +87,9 @@ button {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.main-color {
+  font-weight: 700;
+  color: var(--mainColor);
 }

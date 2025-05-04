@@ -2,18 +2,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { showErrorToast, showSuccessToast } from "../../utils/toasts";
 import { updateField } from "../../api/general/updateField";
 
-const useUpdateField = (endPoint, onSuccess, onError) => {
+const useUpdateField = (endPoint, invalidationArr = [], contentType) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (formData) => updateField(formData, endPoint),
+    mutationFn: (formData) => updateField(formData, endPoint, contentType),
     onSuccess: () => {
-      onSuccess?.();
       showSuccessToast();
-      queryClient.refetchQueries();
+      if (invalidationArr.length) {
+        invalidationArr.forEach((key) => {
+          queryClient.invalidateQueries({ queryKey: key });
+        });
+      }
     },
     onError: (error) => {
-      onError?.();
       showErrorToast(error);
     },
   });

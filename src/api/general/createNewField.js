@@ -1,15 +1,17 @@
 import axios from "axios";
 import { isUserLoggedIn } from "../../utils/isUserLoggedIn";
 
-export const createNewField = async (fieldData, endpoint) => {
-  // const options = {};
-
+export const createNewField = async (
+  fieldData,
+  endpoint,
+  contentType = "application/json"
+) => {
   const response = await axios.post(
     `${import.meta.env.VITE_SERVER_IP}${endpoint}`,
     fieldData,
     {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": contentType,
         Authorization: `Bearer ${isUserLoggedIn()}`,
       },
     }
@@ -17,8 +19,6 @@ export const createNewField = async (fieldData, endpoint) => {
 
   // return response
   const data = await response.data;
-
-  //
 
   return data;
 };

@@ -64,6 +64,9 @@ const Header = () => {
             variant="fill"
             customStyle={css`
               border-radius: 100px;
+              &:hover {
+                color: var(--mainColor);
+              }
             `}
             onClick={() => navigate("/login")}
           />

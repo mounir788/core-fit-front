@@ -11,6 +11,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem;
+  background: white;
   /* border-radius: 0.625rem; */
   /* background: white;
   box-shadow: 0px 39px 15px rgba(140, 140, 140, 0.01),

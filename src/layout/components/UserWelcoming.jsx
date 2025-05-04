@@ -5,8 +5,10 @@ import { Link } from "react-router";
 import { IoChevronDown } from "react-icons/io5";
 
 import { useHandleRefDisplay } from "../../hooks/general/useHandleRefDisplay";
-import { useHandleImageError } from "../../hooks/general/useHandleImageError";
 import useLogout from "../../hooks/auth/useLogout";
+import useGetProfileData from "../../hooks/user/useGetProfileData";
+import Image from "../../components/Image";
+import { Skeleton } from "@mui/material";
 
 const UserInfoWrapper = styled.div`
   position: relative;
@@ -21,15 +23,16 @@ const UserInfoWrapper = styled.div`
     margin-left: auto;
   }
   &:hover {
-    background: var(--gray100);
+    background: var(--lightGreen);
   }
 `;
 
-const UserAvatar = styled.img`
+const UserAvatar = styled.div`
   width: 40px;
   height: 40px;
   aspect-ratio: 1/1;
   border-radius: 100%;
+  overflow: hidden;
 `;
 const TextsWrapper = styled.div`
   display: flex;
@@ -82,31 +85,53 @@ const MenuLink = styled(Link)`
 `;
 
 const UserWelcoming = () => {
-  // const profileData = getUserFromToken();
-  const { addDefaultAvatar, handleImageLoading } = useHandleImageError();
+  const { data, isLoading } = useGetProfileData();
 
   const { logout } = useLogout();
 
   const { menuRef, isMenuDisplayed, switchDisplayMenu } = useHandleRefDisplay();
 
   return (
-    <UserInfoWrapper onClick={switchDisplayMenu} ref={menuRef}>
-      <UserAvatar
-        src={`https://fra1.digitaloceanspaces.com/${
-          import.meta.env.VITE_BUCKET_NAME
-        }/users/${"profileData?.image"}?${new Date().getTime()}`}
-        alt="user profile image"
-        onError={addDefaultAvatar}
-        onLoad={handleImageLoading}
-      />
+    <UserInfoWrapper onClick={!isLoading && switchDisplayMenu} ref={menuRef}>
+      <UserAvatar>
+        {isLoading ? (
+          <Skeleton variant="rectangular" width={"100%"} height={"100%"} />
+        ) : (
+          <Image
+            src={data?.data?.imageUrl}
+            alt={data?.data?.username}
+            isHuman
+          />
+        )}
+      </UserAvatar>
       <TextsWrapper>
-        <UserName>Mounir Ahmed</UserName>
-        <UserEmail>mounir@gmail.com</UserEmail>
+        <UserName>
+          {isLoading ? (
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "inherit" }}
+              width={"50px"}
+            />
+          ) : (
+            data?.data?.username
+          )}
+        </UserName>
+        <UserEmail>
+          {isLoading ? (
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "inherit" }}
+              width={"100px"}
+            />
+          ) : (
+            data?.data?.email
+          )}
+        </UserEmail>
       </TextsWrapper>
       <IoChevronDown color="var(--gray700)" size={16} />
       {isMenuDisplayed && (
         <Menu>
-          <MenuLink>My Profile</MenuLink>
+          <MenuLink to="/dashboard/my-profile">My Profile</MenuLink>
           <MenuLink onClick={logout}>Logout</MenuLink>
         </Menu>
       )}

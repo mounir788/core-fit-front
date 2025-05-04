@@ -27,3 +27,18 @@ export const emailDomainValidation = {
     value.endsWith("@yahoo.com") ||
     "Only Gmail or Yahoo domains are allowed", // Optional, remove if not needed
 };
+
+export const validateBirthDate = (value, maxAge = 100, minAge) => {
+  const birthDate = new Date(value);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const isFutureDate = birthDate > today;
+  const isTooYoung = age < minAge;
+  const isTooOld = age > maxAge;
+
+  if (isFutureDate) return "Birth date cannot be in the future";
+  if (isTooYoung) return `You must be at least ${minAge} years old`;
+  if (isTooOld) return `Birth date cannot be more than ${maxAge} years ago`;
+
+  return true; // Valid input
+};

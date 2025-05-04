@@ -5,7 +5,8 @@ import { useEffect } from "react";
 function AuthenticatorRoute({ children }) {
   const token = sessionStorage.getItem("authToken");
   const decodedToken = token ? jwtDecode(token) : null;
-  const isAuthenticated = decodedToken?.name;
+  const isAuthenticated = decodedToken?.sub;
+
   const navigate = useNavigate();
 
   useEffect(() => {

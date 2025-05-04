@@ -1,10 +1,6 @@
-// import { useState } from "react";
-
 import { useState } from "react";
 
 export const useHandleImageError = () => {
-  //   const [isImageError, setIsImageError] = useState(false);
-
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const handleImageLoading = () => {
@@ -16,14 +12,10 @@ export const useHandleImageError = () => {
   };
 
   const addDefaultBackground = (ev) => {
-    // ev.target.src = "/fallback-image.webp";
     ev.target.src = "/fallback-image.svg";
-    // ev.target.src = "/public/not-found-image.webp";
   };
 
   return {
-    // isImageError,
-    // handleImageError,
     isImageLoading,
     handleImageLoading,
     addDefaultAvatar,

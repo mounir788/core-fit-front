@@ -63,10 +63,10 @@ const TheInput = styled.input`
 const TheTextArea = styled.textarea`
   ${InputFontStyle};
   width: 100%;
-  height: ${({ $height }) => ($height ? $height : "6.313rem")};
+  min-height: ${({ $height }) => ($height ? $height : "6.313rem")};
   padding: 0.625rem 0.938rem;
-  resize: none;
-  min-height: 48px;
+  /* resize: none; */
+  resize: vertical;
   border-radius: 8px;
   border: ${({ $hasError }) =>
     $hasError
@@ -77,7 +77,7 @@ const TheTextArea = styled.textarea`
   background: transparent;
 
   &:focus {
-    border: 1px solid #000000;
+    border: 1px solid var(--mainColor);
   }
   ${L_reg_16s_16h}
 

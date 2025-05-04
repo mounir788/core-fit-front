@@ -7,8 +7,9 @@ import BasicInput from "../../../components/BasicInput";
 import MainButton from "../../../components/MainButton";
 import { AuthForm, Flex } from "../../../styles/generalStyles";
 import useLogin from "../../../hooks/auth/useLogin";
-import { passwordValidation } from "../../../validation/someContantValidations";
+// import { passwordValidation } from "../../../validation/someContantValidations";
 import Logo from "../../../components/Logo";
+import ErrorMessage from "./ErrorMessage";
 
 const RemberMeCheckboxLabel = styled.label`
   width: auto;
@@ -46,43 +47,6 @@ const TextLink = styled(Link)`
   }
 `;
 
-const ErrorMessageText = styled.p`
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.66rem;
-  text-align: right;
-  color: red;
-`;
-
-const ErrorMessage = ({ error }) => {
-  const getErrorMessage = () => {
-    if (error?.request?.status === 0) {
-      return "No internet connection. Please check your connection and try again.";
-    }
-
-    switch (error?.request?.status) {
-      case 400:
-        return "Invalid data entered. Please check and try again.";
-      case 401:
-        return "Incorrect username or password. Please try again.";
-      case 403:
-        return "You do not have the necessary permissions to access this page.";
-      case 404:
-        return "The page you are trying to access does not exist.";
-      // case 500:
-      //   return "A server error occurred. Please try again later.";
-      case 500:
-        return "Invalid data entered. Please check and try again.";
-      case 502:
-        return "The data entered is incorrect. Please verify your input.";
-      default:
-        return `An unexpected error occurred. Please try again later (code: ${error?.request?.status}).`;
-    }
-  };
-
-  return <ErrorMessageText>{getErrorMessage()}</ErrorMessageText>;
-};
-
 const LoginForm = () => {
   const {
     handleSubmit,
@@ -93,7 +57,11 @@ const LoginForm = () => {
   const { isError, mutate, isPending, error } = useLogin();
 
   const login = (formData) => {
-    mutate({ email: formData.email, password: formData.password });
+    mutate({
+      email: formData.email,
+      password: formData.password,
+      type: "PROVIDER",
+    });
   };
 
   return (
@@ -123,7 +91,7 @@ const LoginForm = () => {
             isPasswordInput
             registering={register("password", {
               required: "This field is required",
-              validate: passwordValidation,
+              // validate: passwordValidation,
             })}
             error={errors?.password?.message}
             style={{ background: "var(--gray100)" }}

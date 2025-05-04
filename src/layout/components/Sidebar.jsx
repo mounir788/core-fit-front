@@ -51,7 +51,11 @@ const Sidebar = ({ setPageTitle }) => {
             title={sideLink.title}
             icon={sideLink.icon}
             link={sideLink.link}
-            isActive={pathname === sideLink.link}
+            isActive={
+              sideLink.link === "/dashboard"
+                ? pathname === sideLink.link
+                : pathname.includes(sideLink.link)
+            }
             setPageTitle={setPageTitle}
           />
         ))}
