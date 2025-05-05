@@ -104,7 +104,10 @@ const UserWelcoming = () => {
   const { menuRef, isMenuDisplayed, switchDisplayMenu } = useHandleRefDisplay();
 
   return (
-    <UserInfoWrapper onClick={!isLoading && switchDisplayMenu} ref={menuRef}>
+    <UserInfoWrapper
+      onClick={!isLoading ? switchDisplayMenu : () => {}}
+      ref={menuRef}
+    >
       <UserAvatar>
         {isLoading ? (
           <Skeleton variant="rectangular" width={"100%"} height={"100%"} />
