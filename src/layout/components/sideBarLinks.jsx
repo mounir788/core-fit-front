@@ -2,6 +2,7 @@ import { TbLayoutDashboardFilled } from "react-icons/tb";
 import { IoStorefront } from "react-icons/io5";
 import { MdOutlineSportsHandball } from "react-icons/md";
 import { BsPersonGear } from "react-icons/bs";
+import { FaWallet } from "react-icons/fa6";
 // import { BiSolidCategoryAlt } from "react-icons/bi";
 
 export const sideBarLinks = [
@@ -24,6 +25,11 @@ export const sideBarLinks = [
     title: "Manage Playgrounds",
     link: "/dashboard/playgrounds",
     icon: <MdOutlineSportsHandball />,
+  },
+  {
+    title: "Wallet",
+    link: "/dashboard/wallet",
+    icon: <FaWallet />,
   },
   {
     title: "My Profile",

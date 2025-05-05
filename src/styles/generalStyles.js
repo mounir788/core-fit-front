@@ -540,3 +540,16 @@ export const Discount = styled.div`
     font-weight: 400;
   }
 `;
+
+export const PageTitle = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--gray700);
+
+  @media (width <= 992px) {
+    &.title {
+      display: none;
+    }
+  }
+`;

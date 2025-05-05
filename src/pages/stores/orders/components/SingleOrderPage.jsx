@@ -27,7 +27,7 @@ const SingleOrderPage = () => {
         isError={isError}
         loadingComponent={
           <Flex $direction="column" $gap={16}>
-            <Grid $cols="repeat(auto-fit, 167px)" $gap={"8px"}>
+            <Grid $cols="repeat(auto-fill, minmax(167px,1fr))" $gap={"8px"}>
               {Array.from({ length: 5 }).map((_, i) => (
                 <ProductCard isLoading={isLoading} key={i} />
               ))}
@@ -59,36 +59,36 @@ const SingleOrderPage = () => {
                 <Flex $gap={12} $align="center">
                   <img src="/person-green.svg" alt={"image"} />
                   <Flex $direction="column">
-                    <Skeleton variant="text" width={"80px"} />
-                    <Skeleton variant="text" width={"150px"} />
+                    <Skeleton variant="text" width={"80px"} animation="wave" />
+                    <Skeleton variant="text" width={"150px"} animation="wave" />
                   </Flex>
                 </Flex>
                 <Flex $gap={12} $align="center">
                   <img src="/iphone-green.svg" alt={"image"} />
                   <Flex $direction="column">
-                    <Skeleton variant="text" width={"80px"} />
-                    <Skeleton variant="text" width={"150px"} />
+                    <Skeleton variant="text" width={"80px"} animation="wave" />
+                    <Skeleton variant="text" width={"150px"} animation="wave" />
                   </Flex>
                 </Flex>
                 <Flex $gap={12} $align="center">
                   <img src="/location-green.svg" alt={"image"} />
                   <Flex $direction="column">
-                    <Skeleton variant="text" width={"80px"} />
-                    <Skeleton variant="text" width={"100px"} />
+                    <Skeleton variant="text" width={"80px"} animation="wave" />
+                    <Skeleton variant="text" width={"100px"} animation="wave" />
                   </Flex>
                 </Flex>
                 <Flex $gap={12} $align="center">
                   <img src="/wallet-green.svg" alt={"image"} />
                   <Flex $direction="column">
-                    <Skeleton variant="text" width={"80px"} />
-                    <Skeleton variant="text" width={"150px"} />
+                    <Skeleton variant="text" width={"80px"} animation="wave" />
+                    <Skeleton variant="text" width={"150px"} animation="wave" />
                   </Flex>
                 </Flex>
                 <Flex $gap={12} $align="center">
                   <img src="/message-green.svg" alt={"image"} />
                   <Flex $direction="column">
-                    <Skeleton variant="text" width={"80px"} />
-                    <Skeleton variant="text" width={"150px"} />
+                    <Skeleton variant="text" width={"80px"} animation="wave" />
+                    <Skeleton variant="text" width={"150px"} animation="wave" />
                   </Flex>
                 </Flex>
               </IndicatorBoxContainer>
@@ -120,6 +120,7 @@ const SingleOrderPage = () => {
                       width={"100%"}
                       height={"20px"}
                       sx={{ borderRadius: "8px" }}
+                      animation="wave"
                     />
                   </Flex>
                 ))}
@@ -135,6 +136,7 @@ const SingleOrderPage = () => {
                     width={"100%"}
                     height={"20px"}
                     sx={{ borderRadius: "8px" }}
+                    animation="wave"
                   />
                 </Flex>
               </IndicatorBoxContainer>

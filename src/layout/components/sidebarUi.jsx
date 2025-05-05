@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SidebarContainer = styled.aside`
-  @media (width> 768px) {
+  @media (width > 992px) {
     position: relative;
     width: 15rem;
     max-width: 15rem;

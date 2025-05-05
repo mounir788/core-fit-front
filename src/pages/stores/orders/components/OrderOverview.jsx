@@ -23,7 +23,7 @@ const Text = styled.span`
 const OrderOverview = ({ data }) => {
   return (
     <Flex $direction="column" $gap={16}>
-      <Grid $cols="repeat(auto-fit, 167px)" $gap={"8px"}>
+      <Grid $cols="repeat(auto-fill, minmax(167px,1fr))" $gap={"8px"}>
         {data.orderItems.map((item) => (
           <ProductCard data={item} key={item} />
         ))}

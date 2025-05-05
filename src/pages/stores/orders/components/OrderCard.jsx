@@ -68,6 +68,10 @@ const Done = styled.div`
   text-align: center;
   background: #777777;
   color: white;
+
+  &.canceld {
+    background: var(--darkRed);
+  }
 `;
 
 const OrderCard = ({ data, isLoading }) => {
@@ -83,6 +87,7 @@ const OrderCard = ({ data, isLoading }) => {
             variant="text"
             sx={{ fontSize: "inherit" }}
             width={"100px"}
+            animation="wave"
           />
         </ID>
         <Detailsbadge>Details</Detailsbadge>
@@ -94,6 +99,7 @@ const OrderCard = ({ data, isLoading }) => {
             variant="text"
             sx={{ fontSize: "inherit" }}
             width={"100px"}
+            animation="wave"
           />
         </DetailsText>
       </Flex>
@@ -105,6 +111,7 @@ const OrderCard = ({ data, isLoading }) => {
               variant="text"
               sx={{ fontSize: "inherit" }}
               width={"100px"}
+              animation="wave"
             />
           </DetailsText>
         </Flex>
@@ -115,12 +122,18 @@ const OrderCard = ({ data, isLoading }) => {
               variant="text"
               sx={{ fontSize: "inherit" }}
               width={"100px"}
+              animation="wave"
             />
           </DetailsText>
         </Flex>
       </Grid>
       <DateTime>
-        <Skeleton variant="text" sx={{ fontSize: "inherit" }} width={"100px"} />
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "inherit" }}
+          width={"100px"}
+          animation="wave"
+        />
       </DateTime>
     </Card>
   ) : (
@@ -146,7 +159,10 @@ const OrderCard = ({ data, isLoading }) => {
           <DetailsText>{data.clientPhone}</DetailsText>
         </Flex>
       </Grid>
-      {status === "completed" && <Done>Completed</Done>}
+      {data.status === "ORDER_CANCELED" && (
+        <Done className="canceld">Canceled</Done>
+      )}
+      {data.status === "ORDER_DELIVERED" && <Done>Completed</Done>}
       <DateTime>{getOnlyDate(data.createdAt)}</DateTime>
     </Card>
   );

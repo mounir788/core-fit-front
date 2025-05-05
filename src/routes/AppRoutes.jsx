@@ -13,6 +13,7 @@ import SingleProduct from "../pages/stores/products/components/SingleProduct";
 import StoreFormPage from "../pages/stores/components/StoreFormPage";
 import OrdersPage from "../pages/stores/orders/OrdersPage";
 import SingleOrderPage from "../pages/stores/orders/components/SingleOrderPage";
+import ProfilePage from "../pages/my-profile/ProfilePage";
 
 const AppRoutes = () => {
   return (
@@ -32,6 +33,10 @@ const AppRoutes = () => {
             </AuthenticatorRoute>
           }
         >
+          {/* Profile Settings */}
+          <Route path="my-profile" element={<ProfilePage />} />
+
+          {/* Stores */}
           <Route path="stores" element={<StoresPage />} />
           <Route path="stores/:storeId" element={<SingleStorPage />} />
           <Route
@@ -39,6 +44,8 @@ const AppRoutes = () => {
             element={<StoreFormPage isEditForm />}
           />
           <Route path="stores/add" element={<StoreFormPage />} />
+
+          {/* products */}
           <Route path="stores/:storeId/products" element={<Products />} />
           <Route
             path="stores/:storeId/products/add"
@@ -52,6 +59,8 @@ const AppRoutes = () => {
             path="stores/:storeId/products/:productId"
             element={<SingleProduct />}
           />
+
+          {/* Orders */}
           <Route path="stores/:storeId/orders" element={<OrdersPage />} />
           <Route
             path="stores/:storeId/orders/:orderId"

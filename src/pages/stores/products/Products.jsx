@@ -22,7 +22,7 @@ const Products = () => {
           />
         </Flex>
         <CategoriesFilter />
-        <Grid $cols="repeat(auto-fit, 167px)" $gap={"8px"}>
+        <Grid $cols="repeat(auto-fill, minmax(167px,1fr))" $gap={"8px"}>
           {!isLoading &&
             !isError &&
             data?.data?.products?.length > 0 &&

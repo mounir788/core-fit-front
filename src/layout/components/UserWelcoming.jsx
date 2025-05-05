@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router";
 
 // import { getUserFromToken } from "../../../utils/isUserLoggedIn";
@@ -9,6 +9,7 @@ import useLogout from "../../hooks/auth/useLogout";
 import useGetProfileData from "../../hooks/user/useGetProfileData";
 import Image from "../../components/Image";
 import { Skeleton } from "@mui/material";
+import { Flex } from "../../styles/generalStyles";
 
 const UserInfoWrapper = styled.div`
   position: relative;
@@ -21,9 +22,15 @@ const UserInfoWrapper = styled.div`
   cursor: pointer;
   & svg {
     margin-left: auto;
+    @media (width <= 768px) {
+      margin-left: 0;
+    }
   }
   &:hover {
     background: var(--lightGreen);
+  }
+  @media (width <= 768px) {
+    min-width: auto;
   }
 `;
 
@@ -33,10 +40,15 @@ const UserAvatar = styled.div`
   aspect-ratio: 1/1;
   border-radius: 100%;
   overflow: hidden;
+  border: 2px solid var(--mainColor);
 `;
 const TextsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (width <= 768px) {
+    display: none;
+  }
 `;
 const UserName = styled.p`
   font-size: 1rem;
@@ -55,8 +67,8 @@ const UserEmail = styled.p`
 
 const Menu = styled.div`
   position: absolute;
+  min-width: 250px;
   top: 140%;
-  left: 0;
   right: 0;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -131,6 +143,20 @@ const UserWelcoming = () => {
       <IoChevronDown color="var(--gray700)" size={16} />
       {isMenuDisplayed && (
         <Menu>
+          <Flex
+            $direction="column"
+            $gap={4}
+            $customStyle={css`
+              @media (width > 992px) {
+                display: none;
+              }
+            `}
+          >
+            <MenuLink to="/dashboard">Dashboard</MenuLink>
+            <MenuLink to="/stores">Manage Stores</MenuLink>
+            <MenuLink to="/playgrounds">Manage Playgrounds</MenuLink>
+          </Flex>
+          <MenuLink to="/dashboard/wallet">Wallet</MenuLink>
           <MenuLink to="/dashboard/my-profile">My Profile</MenuLink>
           <MenuLink onClick={logout}>Logout</MenuLink>
         </Menu>

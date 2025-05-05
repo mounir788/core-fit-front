@@ -16,7 +16,7 @@ const SidebarAndPageWrapper = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
-  @media (width<= 768px) {
+  @media (width <= 992px) {
     grid-template-columns: 1fr;
   }
 `;
