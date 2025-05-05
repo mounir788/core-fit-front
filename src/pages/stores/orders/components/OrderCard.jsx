@@ -1,7 +1,12 @@
 import { Link, useParams, useSearchParams } from "react-router";
 import styled from "styled-components";
-import { Flex, Grid } from "../../../../styles/generalStyles";
-import { getOnlyDate } from "../../../../utils/formatDate";
+import {
+  DateTime,
+  Flex,
+  Grid,
+  OrderStatus,
+} from "../../../../styles/generalStyles";
+import { formatTime, getOnlyDate } from "../../../../utils/formatDate";
 import { Skeleton } from "@mui/material";
 
 const Card = styled(Link)`
@@ -49,29 +54,6 @@ const DetailsText = styled.p`
   font-size: 14px;
   line-height: 1.48;
   color: var(--dark);
-`;
-const DateTime = styled.p`
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.25;
-
-  color: #666b88;
-`;
-
-const Done = styled.div`
-  width: fit-content;
-  padding: 8px 16px;
-  border-radius: 100px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.6;
-  text-align: center;
-  background: #777777;
-  color: white;
-
-  &.canceld {
-    background: var(--darkRed);
-  }
 `;
 
 const OrderCard = ({ data, isLoading }) => {
@@ -160,10 +142,14 @@ const OrderCard = ({ data, isLoading }) => {
         </Flex>
       </Grid>
       {data.status === "ORDER_CANCELED" && (
-        <Done className="canceld">Canceled</Done>
+        <OrderStatus className="canceld">Canceled</OrderStatus>
       )}
-      {data.status === "ORDER_DELIVERED" && <Done>Completed</Done>}
-      <DateTime>{getOnlyDate(data.createdAt)}</DateTime>
+      {data.status === "ORDER_DELIVERED" && (
+        <OrderStatus>Completed</OrderStatus>
+      )}
+      <DateTime>
+        {getOnlyDate(data.createdAt)}. {formatTime(data.createdAt)}
+      </DateTime>
     </Card>
   );
 };

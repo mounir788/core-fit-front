@@ -1,7 +1,8 @@
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 export const isUserLoggedIn = () => {
-  const token = sessionStorage.getItem("authToken");
+  const token = Cookies.get("authToken");
   if (token) {
     return token;
   } else {
@@ -10,7 +11,7 @@ export const isUserLoggedIn = () => {
 };
 
 export const getUserId = () => {
-  const token = sessionStorage.getItem("authToken");
+  const token = Cookies.get("authToken");
 
   const id = token ? jwtDecode(token)?.sub : null;
 

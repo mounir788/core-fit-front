@@ -156,8 +156,8 @@ const UserWelcoming = () => {
             `}
           >
             <MenuLink to="/dashboard">Dashboard</MenuLink>
-            <MenuLink to="/stores">Manage Stores</MenuLink>
-            <MenuLink to="/playgrounds">Manage Playgrounds</MenuLink>
+            <MenuLink to="/dashboard/stores">Manage Stores</MenuLink>
+            <MenuLink to="/dashboard/playgrounds">Manage Playgrounds</MenuLink>
           </Flex>
           <MenuLink to="/dashboard/wallet">Wallet</MenuLink>
           <MenuLink to="/dashboard/my-profile">My Profile</MenuLink>

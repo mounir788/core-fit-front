@@ -1,10 +1,14 @@
 import styled, { css } from "styled-components";
 import {
+  DateTime,
   Flex,
   Grid,
   IndicatorBoxContainer,
+  OrderStatus,
 } from "../../../../styles/generalStyles";
 import ProductCard from "../../products/components/ProductCard";
+import MainButton from "../../../../components/MainButton";
+import { formatTime, getOnlyDate } from "../../../../utils/formatDate";
 
 const Name = styled.span`
   font-weight: 400;
@@ -53,6 +57,23 @@ const OrderOverview = ({ data }) => {
             }
           `}
         >
+          <Flex
+            $gap={12}
+            $align="center"
+            $justify="space-between"
+            $width="100%"
+          >
+            <DateTime>
+              {getOnlyDate(data.createdAt)}. {formatTime(data.createdAt)}
+            </DateTime>
+            {data.status === "ORDER_CANCELED" && (
+              <OrderStatus className="canceld">Canceled</OrderStatus>
+            )}
+            {data.status === "ORDER_DELIVERED" && (
+              <OrderStatus>Completed</OrderStatus>
+            )}
+          </Flex>
+
           <Flex $gap={12} $align="center">
             <img src="/person-green.svg" alt={data.clientName} />
             <Flex $direction="column">
@@ -132,6 +153,42 @@ const OrderOverview = ({ data }) => {
             <span style={{ color: "var(--mainColor)" }}>
               <strong>{data.totalPrice}</strong> L.E
             </span>
+          </Flex>
+          <Flex $width="100%" $align="center" $gap={8}>
+            <MainButton
+              title={"Confirm"}
+              variant="filled"
+              customStyle={css`
+                width: 60%;
+                border-radius: 10px;
+                & p {
+                  color: white !important;
+                }
+                &:hover {
+                  background: #0e944b;
+                }
+              `}
+            />
+            {data.status !== "ORDER_CANCELED" && (
+              <MainButton
+                title={"Cancel"}
+                colorfilled={"red"}
+                customStyle={css`
+                  flex: 1;
+                  border-radius: 10px;
+                  border-color: var(--buttonRed);
+                  & p {
+                    color: var(--buttonRed) !important;
+                  }
+                  &:hover {
+                    background: var(--buttonRed);
+                    & p {
+                      color: white !important;
+                    }
+                  }
+                `}
+              />
+            )}
           </Flex>
         </IndicatorBoxContainer>
       </Grid>

@@ -1,22 +1,24 @@
-import { Navigate, useNavigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 function AuthenticatorRoute({ children }) {
-  const token = sessionStorage.getItem("authToken");
+  const token = Cookies.get("authToken");
   const decodedToken = token ? jwtDecode(token) : null;
-  const isAuthenticated = decodedToken?.sub;
+  const isAuthenticated = !!decodedToken?.sub;
 
-  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [navigate, isAuthenticated]);
+  if (!isAuthenticated) {
+    // Save the current location to sessionStorage
+    sessionStorage.setItem(
+      "redirectAfterLogin",
+      location.pathname + location.search
+    );
+    return <Navigate to="/login" replace />;
+  }
 
-  if (isAuthenticated) return children;
-  if (!isAuthenticated) return <Navigate to={"/login"} replace />;
+  return children;
 }
 
 export default AuthenticatorRoute;

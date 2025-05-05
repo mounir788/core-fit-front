@@ -553,3 +553,27 @@ export const PageTitle = styled.h1`
     }
   }
 `;
+
+export const OrderStatus = styled.div`
+  width: fit-content;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+  background: #777777;
+  color: white;
+
+  &.canceld {
+    background: var(--darkRed);
+  }
+`;
+
+export const DateTime = styled.p`
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+
+  color: #666b88 !important;
+`;

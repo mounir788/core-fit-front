@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import PageContentLoader from "../../../components/PageContentLoader";
 import { BoxContainer, Flex, Grid } from "../../../styles/generalStyles";
 import useGetAllOrders from "../../../hooks/orders/useGetAllOrders";
@@ -42,7 +42,6 @@ const FilterButton = styled.button`
 
 const OrdersPage = () => {
   const { data, isLoading, isError } = useGetAllOrders();
-  const { storeId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
 
@@ -96,6 +95,7 @@ const OrdersPage = () => {
               <OrderCard isLoading={isLoading} key={i} />
             ))}
             isDataIsEmpty={data?.data?.length === 0}
+            isDataEmptyMessage="There'are no orders yet!"
           />
         </Grid>
       </Flex>

@@ -18,8 +18,18 @@ export const getOnlyDate = (dateString) => {
     const month = String(dayDate.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed, so add 1
     const year = dayDate.getFullYear();
 
-    return `${day}-${month}-${year}`;
+    return `${day}/${month}/${year}`;
   } else {
     return "Not Found";
   }
+};
+
+export const formatTime = (dateString, locale = "en") => {
+  const date = new Date(dateString);
+
+  return new Intl.DateTimeFormat(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
 };
