@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
 import styled from "styled-components";
 import { Flex, Grid } from "../../../../styles/generalStyles";
 import { getOnlyDate } from "../../../../utils/formatDate";
@@ -72,7 +72,9 @@ const Done = styled.div`
 
 const OrderCard = ({ data, isLoading }) => {
   const [searchParams] = useSearchParams();
+  const { storeId } = useParams();
   const status = searchParams.get("status");
+
   return isLoading ? (
     <Card>
       <Flex $justify="space-between" $align="center">
@@ -122,7 +124,10 @@ const OrderCard = ({ data, isLoading }) => {
       </DateTime>
     </Card>
   ) : (
-    <Card className={status}>
+    <Card
+      className={status}
+      to={`/dashboard/stores/${storeId}/orders/${data.id}`}
+    >
       <Flex $justify="space-between" $align="center">
         <ID>#{data?.id}</ID>
         <Detailsbadge>Details</Detailsbadge>
@@ -134,14 +139,14 @@ const OrderCard = ({ data, isLoading }) => {
       <Grid $cols="1fr 1fr" $gap={8}>
         <Flex $align="center" $gap={8}>
           <img src="/person.svg" alt="name" />
-          <DetailsText>{data.clientName || "Mounir Ahmed"}</DetailsText>
+          <DetailsText>{data.clientName}</DetailsText>
         </Flex>
         <Flex $align="center" $gap={8}>
           <img src="/iphone.svg" alt="phone" />
-          <DetailsText>{data.clientName || "+20118477375"}</DetailsText>
+          <DetailsText>{data.clientPhone}</DetailsText>
         </Flex>
       </Grid>
-      {status === "completed" && <Done>Completed Order</Done>}
+      {status === "completed" && <Done>Completed</Done>}
       <DateTime>{getOnlyDate(data.createdAt)}</DateTime>
     </Card>
   );

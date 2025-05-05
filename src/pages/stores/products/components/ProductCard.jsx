@@ -86,9 +86,23 @@ const Hidden = styled.div`
   z-index: 4;
 `;
 
+const Count = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mainColor);
+  color: white;
+  z-index: 4;
+`;
+
 const ProductCard = ({ data, isLoading }) => {
   const navigate = useNavigate();
-  const { storeId } = useParams();
+  const { storeId, orderId } = useParams();
   const { mutate, isPending } = useDelete("/products/delete_product", [
     ["products"],
   ]);
@@ -159,39 +173,50 @@ const ProductCard = ({ data, isLoading }) => {
           <PiEyeSlashLight size={18} />
         </Hidden>
       )}
-      <ActionButton>
-        <CardActionButton
-          background="white"
-          extraComponent={
-            <Modal>
-              <Modal.Open opens="hideProduct">
-                <EditButtonContainer>
-                  {data.hidden ? <PiEyeLight /> : <PiEyeSlashLight />}
-                  {data.hidden ? "Show" : "Hide"}
-                </EditButtonContainer>
-              </Modal.Open>
+      {orderId && (
+        <Count>
+          <span>
+            <strong>{data.count}</strong>x
+          </span>
+        </Count>
+      )}
+      {!orderId && (
+        <ActionButton>
+          <CardActionButton
+            background="white"
+            extraComponent={
+              <Modal>
+                <Modal.Open opens="hideProduct">
+                  <EditButtonContainer>
+                    {data.hidden ? <PiEyeLight /> : <PiEyeSlashLight />}
+                    {data.hidden ? "Show" : "Hide"}
+                  </EditButtonContainer>
+                </Modal.Open>
 
-              <Modal.Window name={"hideProduct"}>
-                <ConfirmMessage
-                  messagTitle={data.hidden ? "Show Product" : "Hide Product"}
-                  message={
-                    data.hidden
-                      ? `Show (${data.name}) in products`
-                      : `Hide (${data.name}) from products`
-                  }
-                  acceptButtonLabel={data.hidden ? "Show" : "Hide"}
-                  action={(onCloseModal) => toggleHidProduct(onCloseModal)}
-                  isLoading={isHiding}
-                  cancelButtonLabel={"Cancel"}
-                />
-              </Modal.Window>
-            </Modal>
-          }
-          isDeleting={isPending}
-          deleteAction={(onCloseModal) => deleteProduct(data.id, onCloseModal)}
-          link={`/dashboard/stores/${storeId}/products/${data.id}/edit`}
-        />
-      </ActionButton>
+                <Modal.Window name={"hideProduct"}>
+                  <ConfirmMessage
+                    messagTitle={data.hidden ? "Show Product" : "Hide Product"}
+                    message={
+                      data.hidden
+                        ? `Show (${data.name}) in products`
+                        : `Hide (${data.name}) from products`
+                    }
+                    acceptButtonLabel={data.hidden ? "Show" : "Hide"}
+                    action={(onCloseModal) => toggleHidProduct(onCloseModal)}
+                    isLoading={isHiding}
+                    cancelButtonLabel={"Cancel"}
+                  />
+                </Modal.Window>
+              </Modal>
+            }
+            isDeleting={isPending}
+            deleteAction={(onCloseModal) =>
+              deleteProduct(data.id, onCloseModal)
+            }
+            link={`/dashboard/stores/${storeId}/products/${data.id}/edit`}
+          />
+        </ActionButton>
+      )}
       <ImageContainer>
         <Image src={data.images?.[0] || ""} alt={data.name} />
       </ImageContainer>

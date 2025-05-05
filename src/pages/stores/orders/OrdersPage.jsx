@@ -34,6 +34,10 @@ const FilterButton = styled.button`
     display: grid;
     place-content: center;
   }
+  &.active::before {
+    background: white;
+    color: var(--mainColor);
+  }
 `;
 
 const OrdersPage = () => {

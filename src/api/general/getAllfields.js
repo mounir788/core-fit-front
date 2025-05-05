@@ -14,7 +14,7 @@ export const getAllFields = async (endpoint, params, haveParams = true) => {
       params: haveParams
         ? {
             ...params,
-            page: params.page ? params.page - 1 : 1,
+            page: params.page ? params.page : 1,
             size: params.size ? params.size : 10,
           }
         : undefined,

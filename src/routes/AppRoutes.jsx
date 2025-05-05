@@ -12,6 +12,7 @@ import ProductFormPage from "../pages/stores/products/components/ProductFormPage
 import SingleProduct from "../pages/stores/products/components/SingleProduct";
 import StoreFormPage from "../pages/stores/components/StoreFormPage";
 import OrdersPage from "../pages/stores/orders/OrdersPage";
+import SingleOrderPage from "../pages/stores/orders/components/SingleOrderPage";
 
 const AppRoutes = () => {
   return (
@@ -52,6 +53,10 @@ const AppRoutes = () => {
             element={<SingleProduct />}
           />
           <Route path="stores/:storeId/orders" element={<OrdersPage />} />
+          <Route
+            path="stores/:storeId/orders/:orderId"
+            element={<SingleOrderPage />}
+          />
         </Route>
       </Routes>
     </>
