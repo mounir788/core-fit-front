@@ -12,15 +12,16 @@ const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem;
-  background: white;
   /* border-radius: 0.625rem; */
   /* background: white;
   box-shadow: 0px 39px 15px rgba(140, 140, 140, 0.01),
-    0px 22px 13px rgba(140, 140, 140, 0.04),
-    0px 10px 10px rgba(140, 140, 140, 0.06),
-    0px 2px 5px rgba(140, 140, 140, 0.07); */
+  0px 22px 13px rgba(140, 140, 140, 0.04),
+  0px 10px 10px rgba(140, 140, 140, 0.06),
+  0px 2px 5px rgba(140, 140, 140, 0.07); */
+  box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
 
   @media (width<= 768px) {
+    background: white;
     justify-content: flex-end;
     .hamburger-menu {
       display: inline;
@@ -41,7 +42,7 @@ const UserAndNotificationIconContainer = styled.div`
   align-items: center;
 `;
 
-const MainHeader = ({ pageTitle, switchOpenResponsiveSidebar }) => {
+const MainHeader = ({ pageTitle }) => {
   // const { pathname } = useLocation();
   // const breads = pathname
   //   .split("/")

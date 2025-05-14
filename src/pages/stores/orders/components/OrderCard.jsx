@@ -15,8 +15,8 @@ const Card = styled(Link)`
   gap: 16px;
   padding: 16px 12px;
   border-radius: 16px;
-  background: var(--gray20);
-  transition: 300ms ease-in-out;
+  background: white;
+  box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
 
   & img {
     width: 20px;
@@ -24,10 +24,6 @@ const Card = styled(Link)`
 
   &:hover {
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.09);
-  }
-
-  &.completed {
-    background: var(--gray10);
   }
 `;
 

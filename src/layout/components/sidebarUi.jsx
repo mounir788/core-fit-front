@@ -8,18 +8,19 @@ export const SidebarContainer = styled.aside`
     /* margin: 1rem 0 1rem 1rem; */
     display: flex;
     flex-direction: column;
-    background: white;
+    /* background: white; */
     padding: 1rem 0.75rem 1em;
     /* border-right: 1px solid var(--gray100); */
     overflow: auto;
     overflow-x: hidden;
     /* border-radius: 0.625rem; */
     gap: 2rem;
-    box-shadow: 0px 39px 15px rgba(140, 140, 140, 0.01),
+    /* box-shadow: 0px 39px 15px rgba(140, 140, 140, 0.01),
       0px 22px 13px rgba(140, 140, 140, 0.04),
       0px 10px 10px rgba(140, 140, 140, 0.06),
-      0px 2px 5px rgba(140, 140, 140, 0.07);
+      0px 2px 5px rgba(140, 140, 140, 0.07); */
     /* height: 100%; */
+    box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
   }
   display: none;
 `;

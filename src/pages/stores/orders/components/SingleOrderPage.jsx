@@ -2,7 +2,6 @@ import { css } from "styled-components";
 import PageContentLoader from "../../../../components/PageContentLoader";
 import useGetSingleOrder from "../../../../hooks/orders/useGetSingleOrder";
 import {
-  BoxContainer,
   Flex,
   Grid,
   IndicatorBoxContainer,
@@ -15,7 +14,7 @@ import { Skeleton } from "@mui/material";
 const SingleOrderPage = () => {
   const { data, isLoading, isError } = useGetSingleOrder();
   return (
-    <BoxContainer>
+    <>
       <MainTitle>Order Overview</MainTitle>
 
       {!isError && !isLoading && (
@@ -42,12 +41,12 @@ const SingleOrderPage = () => {
               `}
             >
               <IndicatorBoxContainer
-                $background="#EEFBF4"
+                $background="white"
                 $customeStyle={css`
                   align-items: flex-start;
                   height: auto;
                   &:hover {
-                    background: #eefbf4;
+                    background: white;
                   }
                   & img {
                     width: 20px;
@@ -93,13 +92,13 @@ const SingleOrderPage = () => {
                 </Flex>
               </IndicatorBoxContainer>
               <IndicatorBoxContainer
-                $background="var(--gray10)"
+                $background="white"
                 $customeStyle={css`
                   height: auto;
                   justify-content: flex-start;
                   gap: 12px;
                   &:hover {
-                    background: var(--gray10);
+                    background: white;
                   }
                 `}
               >
@@ -144,7 +143,7 @@ const SingleOrderPage = () => {
           </Flex>
         }
       />
-    </BoxContainer>
+    </>
   );
 };
 

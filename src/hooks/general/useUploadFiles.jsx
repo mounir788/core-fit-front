@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { uploadFile } from "../../api/uploadFile";
 import { showErrorToast } from "../../utils/toasts";
+import { uploadFile } from "../../api/general/uploadFile";
 
 export const useUploadFiles = () => {
   const [isUploading, setIsUploading] = useState(false);
@@ -13,7 +13,6 @@ export const useUploadFiles = () => {
   const uploadImageToServer = async (
     id,
     image,
-    successMessage,
     link,
     folderName,
     imageName

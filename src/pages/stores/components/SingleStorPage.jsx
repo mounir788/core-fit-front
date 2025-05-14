@@ -19,11 +19,8 @@ const SingleStorPage = () => {
   const { storeId } = useParams();
 
   return (
-    <BoxContainer>
-      <MainTitle>Store Overview</MainTitle>
-      <StoreOverview />
-
-      <Flex $gap={16} $wrap="wrap">
+    <>
+      <Flex $gap={16} $wrap="wrap" $padding="1rem 0">
         <Grid
           $cols="repeat(2, 1fr)"
           $customeStyle={css`
@@ -82,7 +79,11 @@ const SingleStorPage = () => {
           </Flex>
         </IndicatorBoxContainer>
       </Flex>
-    </BoxContainer>
+      <BoxContainer>
+        <MainTitle>Store Overview</MainTitle>
+        <StoreOverview />
+      </BoxContainer>
+    </>
   );
 };
 

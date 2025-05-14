@@ -8,10 +8,11 @@ import BasicInput from "../../../../components/BasicInput";
 import FormAcceptButton from "../../../../components/FormAcceptButton";
 import FormCancelButton from "../../../../components/FormCancelButton";
 import useCreateField from "../../../../hooks/general/useCreateField";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import ImageUploader from "../../../../components/ImageUploader";
 import CustomSelect from "../../../../components/CustomSelect";
 import useGetAllCategories from "../../../../hooks/products/useGetAllCategories";
+import { useUploadFiles } from "../../../../hooks/general/useUploadFiles";
 
 const ProductForm = ({ isEditForm = false, defaultData = {} }) => {
   const { data: categories } = useGetAllCategories();
@@ -40,27 +41,37 @@ const ProductForm = ({ isEditForm = false, defaultData = {} }) => {
   });
   const { mutate: createProduct, isPending: isCreating } = useCreateField(
     "/products/add_product",
-    [["single-product"], ["products"]],
-    "multipart/form-data"
+    [["single-product"], ["products"]]
   );
   const { mutate: updateProduct, isPending: isUpdating } = useCreateField(
     "/products/edit_product",
-    [["single-product"], ["products"]],
-    "multipart/form-data"
+    [["single-product"], ["products"]]
   );
 
   const { storeId } = useParams();
-  const navigate = useNavigate();
+
+  const { isUploading, uploadImageToServer } = useUploadFiles();
 
   const handleFormSubmittion = (formData) => {
-    formData.images = formData.images.map((image) => image.file || image.url);
+    const imagesToUpload = formData.images.map((image) => ({
+      name: image.name,
+      image: image.file,
+    }));
+    formData.images = formData.images.map(
+      (image) => image.supabaseUrl || image.url
+    );
 
     if (isEditForm) {
       updateProduct(
         { ...formData, marketId: storeId },
         {
-          onSuccess: () =>
-            navigate(`/dashboard/stores/${storeId}/products/${defaultData.id}`),
+          onSuccess: (res) =>
+            uploadImageToServer(
+              res.data.id,
+              imagesToUpload,
+              `/dashboard/stores/${storeId}/products/${res.data.id}`,
+              "products"
+            ),
         }
       );
     } else {
@@ -68,7 +79,12 @@ const ProductForm = ({ isEditForm = false, defaultData = {} }) => {
         { ...formData, marketId: storeId },
         {
           onSuccess: (res) =>
-            navigate(`/dashboard/stores/${storeId}/products/${res.data.id}`),
+            uploadImageToServer(
+              res.data.id,
+              imagesToUpload,
+              `/dashboard/stores/${storeId}/products/${res.data.id}`,
+              "products"
+            ),
         }
       );
     }
@@ -84,6 +100,7 @@ const ProductForm = ({ isEditForm = false, defaultData = {} }) => {
             <ImageUploader
               defaultImages={defaultData?.images || []}
               onChange={(option) => field.onChange(option)}
+              folderName={"products"}
             />
           )}
           rules={{
@@ -172,7 +189,7 @@ const ProductForm = ({ isEditForm = false, defaultData = {} }) => {
       <Flex $align="center" $gap={16}>
         <FormAcceptButton
           buttonLabel={"Submit"}
-          isLoading={isCreating || isUpdating}
+          isLoading={isCreating || isUpdating || isUploading}
         />
         <FormCancelButton buttonLabel={"Cancel"} />
       </Flex>

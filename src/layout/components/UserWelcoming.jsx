@@ -19,7 +19,10 @@ const UserInfoWrapper = styled.div`
   padding: 0.375rem 0.75rem;
   border-radius: 100px;
   gap: 0.625rem;
+  background: white;
   cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
+
   & svg {
     margin-left: auto;
     @media (width <= 768px) {

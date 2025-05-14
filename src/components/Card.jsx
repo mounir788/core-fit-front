@@ -18,7 +18,7 @@ const StyledCard = styled.div`
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.75rem;
-  border: 1px solid #eee;
+  /* border: 1px solid #eee; */
   transition: background 0.2s ease-in-out;
   display: flex;
   gap: 12px;
@@ -26,6 +26,7 @@ const StyledCard = styled.div`
   flex-shrink: 0;
   background: white;
   cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
 
   &.active,
   &:hover {
@@ -70,8 +71,12 @@ const Card = ({ data, link, isLoading }) => {
   const navigate = useNavigate();
   const { mutate, isPending } = useDelete("/delete_market", [["markets"]]);
   const { mutate: closeStore, isPending: isHiding } = useUpdateField(
-    `/change_status?id=${data?.id}`,
-    [["markets"], ["single-market"]]
+    pathname.includes("playgrounds")
+      ? `/playgrounds/change_status?id=${data?.id}`
+      : `/change_status?id=${data?.id}`,
+    pathname.includes("playgrounds")
+      ? [["playgrounds"], ["single-playground"]]
+      : [["markets"], ["single-market"]]
   );
 
   const deleteStore = (id, onCloseModal) => {
@@ -121,7 +126,7 @@ const Card = ({ data, link, isLoading }) => {
       className={pathname.includes(data.id) && "active"}
     >
       <ImageContainer>
-        <Image src={data.imageUrl} alt={data.name} />
+        <Image src={data.imageUrl || data.images?.[0]} alt={data.name} />
       </ImageContainer>
       <Flex $justify="space-between" $align="center" $width="100%" $gap={16}>
         <Flex $direction="column" $gap={4} style={{ flex: 1 }}>

@@ -322,7 +322,7 @@ export const IndicatorBoxContainer = styled.div`
   height: 200px;
   padding: 1.5rem;
   border-radius: 1rem;
-  background: ${({ $background }) => $background || "transparent"};
+  background: ${({ $background }) => $background || "white"};
   border: 1px solid ${({ $borderColor }) => $borderColor || "var(--gray10)"};
   display: flex;
   flex-direction: column;

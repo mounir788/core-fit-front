@@ -24,6 +24,7 @@ const Card = styled.div`
   border: 1px solid var(--gray10);
   cursor: pointer;
   /* height: 290px; */
+  background: white;
   transition: 400ms ease-in-out;
 
   &:hover {

@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { ReactSortable } from "react-sortablejs"; // ✅ Correct component to render
 import styled from "styled-components";
 import { LuUpload } from "react-icons/lu";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
   display: flex;
@@ -91,19 +92,29 @@ const DeleteButton = styled.button`
   }
 `;
 
-const ImageUploader = ({ defaultImages = [], onChange }) => {
+const ImageUploader = ({ defaultImages = [], onChange, folderName }) => {
   const [images, setImages] = useState(
     defaultImages.map((url, index) => ({ id: `${index}`, url }))
   );
 
   const handleDrop = useCallback(
     (acceptedFiles) => {
-      const newImages = acceptedFiles.map((file, index) => ({
-        id: `${images.length + index}`,
-        file,
-        url: URL.createObjectURL(file),
-      }));
-      console.log({ acceptedFiles });
+      const newImages = acceptedFiles.map((file) => {
+        const extension = file.name.split(".").pop();
+        const uniqueName = `${uuidv4()}.${extension}`;
+
+        return {
+          id: uuidv4(),
+          file,
+          url: URL.createObjectURL(file),
+          name: uniqueName, // <--- Use this for uploading later
+          supabaseUrl: `${
+            import.meta.env.VITE_SUPABASE_URL
+          }/storage/v1/object/public/${
+            import.meta.env.VITE_SUPABASE_BUCKET_NAME
+          }/${folderName}/${uniqueName}`,
+        };
+      });
 
       setImages((prev) => {
         const updated = [...prev, ...newImages];
@@ -111,7 +122,7 @@ const ImageUploader = ({ defaultImages = [], onChange }) => {
         return updated;
       });
     },
-    [images.length, onChange]
+    [onChange]
   );
 
   const removeImage = (id) => {

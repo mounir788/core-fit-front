@@ -14,6 +14,8 @@ import StoreFormPage from "../pages/stores/components/StoreFormPage";
 import OrdersPage from "../pages/stores/orders/OrdersPage";
 import SingleOrderPage from "../pages/stores/orders/components/SingleOrderPage";
 import ProfilePage from "../pages/my-profile/ProfilePage";
+import PlaygroundsPage from "../pages/playgrounds/PlaygroundsPage";
+import SinglePlaygroundPage from "../pages/playgrounds/components/SinglePlaygroundPage";
 
 const AppRoutes = () => {
   return (
@@ -66,6 +68,18 @@ const AppRoutes = () => {
             path="stores/:storeId/orders/:orderId"
             element={<SingleOrderPage />}
           />
+
+          {/* Playgrunds */}
+          <Route path="playgrounds" element={<PlaygroundsPage />} />
+          <Route
+            path="playgrounds/:playgroundId"
+            element={<SinglePlaygroundPage />}
+          />
+          <Route
+            path="playgrounds/:playgroundId/edit"
+            element={<SingleOrderPage />}
+          />
+          <Route path="playgrounds/add" element={<SingleOrderPage />} />
         </Route>
       </Routes>
     </>

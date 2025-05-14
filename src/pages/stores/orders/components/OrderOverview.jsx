@@ -9,6 +9,7 @@ import {
 import ProductCard from "../../products/components/ProductCard";
 import MainButton from "../../../../components/MainButton";
 import { formatTime, getOnlyDate } from "../../../../utils/formatDate";
+import useCreateField from "../../../../hooks/general/useCreateField";
 
 const Name = styled.span`
   font-weight: 400;
@@ -25,8 +26,21 @@ const Text = styled.span`
 `;
 
 const OrderOverview = ({ data }) => {
+  const { mutate, isPending } = useCreateField("/change_status", [
+    ["single-order", data.id],
+    ["orders"],
+  ]);
+
+  const changeStatus = (status) => {
+    mutate({
+      orderId: data.id,
+      status,
+      FcmToken: localStorage.getItem("firebase_token"),
+    });
+  };
+
   return (
-    <Flex $direction="column" $gap={16}>
+    <Flex $direction="column" $gap={16} $padding="1rem 0 0">
       <Grid $cols="repeat(auto-fill, minmax(167px,1fr))" $gap={"8px"}>
         {data.orderItems.map((item) => (
           <ProductCard data={item} key={item} />
@@ -111,13 +125,13 @@ const OrderOverview = ({ data }) => {
           </Flex>
         </IndicatorBoxContainer>
         <IndicatorBoxContainer
-          $background="var(--gray10)"
+          $background="white"
           $customeStyle={css`
             height: auto;
             justify-content: flex-start;
             gap: 12px;
             &:hover {
-              background: var(--gray10);
+              background: white;
             }
           `}
         >
@@ -154,22 +168,25 @@ const OrderOverview = ({ data }) => {
               <strong>{data.totalPrice}</strong> L.E
             </span>
           </Flex>
-          <Flex $width="100%" $align="center" $gap={8}>
-            <MainButton
-              title={"Confirm"}
-              variant="filled"
-              customStyle={css`
-                width: 60%;
-                border-radius: 10px;
-                & p {
-                  color: white !important;
-                }
-                &:hover {
-                  background: #0e944b;
-                }
-              `}
-            />
-            {data.status !== "ORDER_CANCELED" && (
+          {data.status === "ORDER_RECEIVED" && (
+            <Flex $width="100%" $align="center" $gap={8}>
+              <MainButton
+                title={"Confirm"}
+                variant="filled"
+                customStyle={css`
+                  width: 60%;
+                  border-radius: 10px;
+                  & p {
+                    color: white !important;
+                  }
+                  &:hover {
+                    background: #0e944b;
+                  }
+                `}
+                onClick={() => changeStatus("confirmed")}
+                isLoading={isPending}
+                isDisabled={isPending}
+              />
               <MainButton
                 title={"Cancel"}
                 colorfilled={"red"}
@@ -187,9 +204,12 @@ const OrderOverview = ({ data }) => {
                     }
                   }
                 `}
+                onClick={() => changeStatus("cancelled")}
+                isLoading={isPending}
+                isDisabled={isPending}
               />
-            )}
-          </Flex>
+            </Flex>
+          )}
         </IndicatorBoxContainer>
       </Grid>
     </Flex>

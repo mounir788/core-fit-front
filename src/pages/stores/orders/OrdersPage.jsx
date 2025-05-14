@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 import PageContentLoader from "../../../components/PageContentLoader";
-import { BoxContainer, Flex, Grid } from "../../../styles/generalStyles";
+import { Flex, Grid } from "../../../styles/generalStyles";
 import useGetAllOrders from "../../../hooks/orders/useGetAllOrders";
 import OrderCard from "./components/OrderCard";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ const FilterButton = styled.button`
   cursor: pointer;
   border-radius: 12px;
   position: relative;
+  box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
 
   &.active {
     background: var(--mainColor);
@@ -56,10 +57,10 @@ const OrdersPage = () => {
   };
 
   return (
-    <BoxContainer>
+    <>
       <Flex $direction="column" $gap={16}>
-        <Flex $justify="space-between" $gap={30} $wrap="wrap">
-          <h1>Orders</h1>
+        <Flex $justify="space-between" $gap={30} $wrap="wrap" $align="center">
+          <h2>Orders</h2>
           <Grid $cols="repeat(3, 1fr)" $gap={"10px"}>
             <FilterButton
               onClick={() => changeStatus("new")}
@@ -82,7 +83,7 @@ const OrdersPage = () => {
             </FilterButton>
           </Grid>
         </Flex>
-        <Grid $cols="repeat(auto-fit, minmax(300px,1fr))" $gap={"16px"}>
+        <Grid $cols="repeat(auto-fill, minmax(300px,1fr))" $gap={"16px"}>
           {!isLoading &&
             !isError &&
             data?.data?.length > 0 &&
@@ -99,7 +100,7 @@ const OrdersPage = () => {
           />
         </Grid>
       </Flex>
-    </BoxContainer>
+    </>
   );
 };
 

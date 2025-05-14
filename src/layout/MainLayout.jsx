@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Sidebar from "./components/Sidebar";
 import MainHeader from "./components/MainHeader";
 import styled from "styled-components";
+import { listenToMessages, requestPermission } from "../firebase/service";
 // import ResponsiveSidebar from "./components/ResponsiveSidebar";
 
 const MainWrapper = styled.div`
@@ -40,33 +41,26 @@ const OutletWrapper = styled.div`
 
 const MainLayout = () => {
   const [pageTitle, setPageTitle] = useState("");
-  const [isResponsiveSidebarOpen, setIsResponsiveSidebarOpen] = useState(false);
 
-  const switchOpenResponsiveSidebar = () => {
-    setIsResponsiveSidebarOpen(!isResponsiveSidebarOpen);
-  };
+  useEffect(() => {
+    const initializeNotifications = async () => {
+      await requestPermission();
+      const unsubscribe = listenToMessages();
+      return () => {
+        if (unsubscribe) unsubscribe();
+      };
+    };
 
-  const closeResponsiveSidebar = () => {
-    setIsResponsiveSidebarOpen(false);
-  };
+    initializeNotifications();
+  }, []);
 
   return (
     <MainWrapper>
       <SidebarAndPageWrapper>
         <Sidebar setPageTitle={setPageTitle} />
 
-        {/* <ResponsiveSidebar
-          setPageTitle={setPageTitle}
-          isResponsiveSidebarOpen={isResponsiveSidebarOpen}
-          closeResponsiveSidebar={closeResponsiveSidebar}
-          setIsResponsiveSidebarOpen={setIsResponsiveSidebarOpen}
-        /> */}
-
         <PageContentWrapper>
-          <MainHeader
-            pageTitle={pageTitle}
-            switchOpenResponsiveSidebar={switchOpenResponsiveSidebar}
-          />
+          <MainHeader pageTitle={pageTitle} />
 
           <OutletWrapper>
             <Outlet />

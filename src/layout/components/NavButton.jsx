@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import styled, { css } from "styled-components";
 // import { motion } from "motion/react";
 import { L_med_14s_14h } from "../../styles/fonts";
@@ -10,34 +10,26 @@ const DropdownContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.625em;
+  gap: 1rem;
   width: 100%;
   border-radius: 0.625rem;
-  padding: 1rem 1.25em;
-  background: ${({ $isActive }) =>
-    $isActive ? "var(--mainColor)" : "transparent"};
-  color: ${({ $isActive }) => ($isActive ? "white" : "var(--gray700)")};
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  color: var(--gray700);
   overflow: hidden;
   cursor: pointer;
-
-  ${({ $isActive }) =>
-    $isActive &&
-    css`
-      svg {
-        path {
-          fill: white;
-        }
-      }
-    `}
-
-  &:hover {
-    background: ${({ $isActive }) =>
-      $isActive ? "var(--mainColor)" : "var(--gray100)"};
-  }
 
   h2 {
     ${L_med_14s_14h}
     font-weight: 400;
+  }
+
+  &.active,
+  &:hover {
+    background: white;
+    h2 {
+      font-weight: 500;
+    }
   }
 
   @media (width<= 768px) {
@@ -48,6 +40,22 @@ const DropdownContainer = styled.div`
     border-radius: 0.625rem;
     justify-content: flex-start;
     /* padding: 15px 20px; */
+  }
+`;
+
+const Icon = styled.div`
+  display: grid;
+  place-content: center;
+  padding: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0px 2px 5px rgba(38, 38, 38, 0.07);
+
+  ${DropdownContainer}.active &,
+  ${DropdownContainer}:hover & {
+    background: var(--mainColor);
+    color: white;
   }
 `;
 
@@ -79,7 +87,7 @@ const NavButton = ({
 
   // Handle setting the dropdown expansion based on active links and update pageTitle
   useEffect(() => {
-    if (pathname === link) {
+    if (pathname.includes(link)) {
       setPageTitle(title);
     }
   }, [pathname, setPageTitle, link, title]);
@@ -93,13 +101,13 @@ const NavButton = ({
   return (
     <>
       <DropdownContainer
-        $isActive={isActive}
+        className={isActive ? "active" : ""}
         onClick={handleSetPageTitle}
         ref={dropdownRef}
         $height={height}
       >
-        <Flex $align="center" $gap={8}>
-          {icon}
+        <Flex $align="center" $gap={12}>
+          <Icon className={isActive ? "active" : ""}>{icon}</Icon>
 
           <h2>{title}</h2>
         </Flex>
