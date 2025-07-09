@@ -15,8 +15,8 @@ import MapInput from "../../../components/MapInput";
 import useGetGovernrates from "../../../hooks/auth/useGetGovernrates";
 import useGetCities from "../../../hooks/auth/useGetCities";
 import { useState } from "react";
-import BasicCheckBox from "../../../components/BasicCheckbox";
 import { css } from "styled-components";
+import BasicCheckBox from "../../../components/BasicCheckbox";
 
 const PlaygroundForm = ({ isEditForm = false, defaultData = {} }) => {
   const [governrateId, setGovernrateId] = useState(null);
