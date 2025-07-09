@@ -9,15 +9,9 @@ const CustomCheckBoxInput = styled.input`
   cursor: pointer;
 `;
 
-const BasicCheckBox = ({
-  registering,
-  isRequired,
-  id = "limited",
-  ...props
-}) => {
+const BasicCheckBox = ({ isRequired, id = "limited", ...props }) => {
   return (
     <CustomCheckBoxInput
-      {...registering}
       type="checkbox"
       id={id}
       required={isRequired}
