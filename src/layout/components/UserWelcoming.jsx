@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router";
 
 // import { getUserFromToken } from "../../../utils/isUserLoggedIn";
-import { IoChevronDown } from "react-icons/io5";
+// import { IoChevronDown } from "react-icons/io5";
 
 import { useHandleRefDisplay } from "../../hooks/general/useHandleRefDisplay";
 import useLogout from "../../hooks/auth/useLogout";
@@ -16,7 +16,7 @@ const UserInfoWrapper = styled.div`
   min-width: 250px;
   display: flex;
   align-items: center;
-  padding: 0.375rem 0.75rem;
+  padding: 0.375rem 0.4rem;
   border-radius: 100px;
   gap: 0.625rem;
   background: white;
@@ -146,7 +146,7 @@ const UserWelcoming = () => {
           )}
         </UserEmail>
       </TextsWrapper>
-      <IoChevronDown color="var(--gray700)" size={16} />
+      {/* <IoChevronDown color="var(--gray700)" size={16} /> */}
       {isMenuDisplayed && (
         <Menu>
           <Flex

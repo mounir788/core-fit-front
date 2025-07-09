@@ -44,7 +44,7 @@ const FilterButton = styled.button`
 const OrdersPage = () => {
   const { data, isLoading, isError } = useGetAllOrders();
   const [searchParams, setSearchParams] = useSearchParams();
-  const status = searchParams.get("status") || "";
+  const status = searchParams.get("status") || "current";
 
   const changeStatus = (newStatus) => {
     const currentSearchParams = new URLSearchParams(searchParams);
@@ -70,8 +70,8 @@ const OrdersPage = () => {
               New
             </FilterButton>
             <FilterButton
-              onClick={() => changeStatus("")}
-              className={!status && "active"}
+              onClick={() => changeStatus("current")}
+              className={status === "current" && "active"}
             >
               Current
             </FilterButton>

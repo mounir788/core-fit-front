@@ -69,10 +69,13 @@ const ImageContainer = styled.div`
 const Card = ({ data, link, isLoading }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { mutate, isPending } = useDelete("/delete_market", [["markets"]]);
+  const { mutate, isPending } = useDelete(
+    pathname.includes("playgrounds") ? "/playground/delete" : "/delete_market",
+    pathname.includes("playgrounds") ? [["playgrounds"]] : [["markets"]]
+  );
   const { mutate: closeStore, isPending: isHiding } = useUpdateField(
     pathname.includes("playgrounds")
-      ? `/playgrounds/change_status?id=${data?.id}`
+      ? `/playground/change_status?playgroundId=${data?.id}`
       : `/change_status?id=${data?.id}`,
     pathname.includes("playgrounds")
       ? [["playgrounds"], ["single-playground"]]
@@ -139,7 +142,11 @@ const Card = ({ data, link, isLoading }) => {
           </Subtitle>
         </Flex>
         <CardActionButton
-          link={`/dashboard/stores/${data.id}/edit`}
+          link={
+            pathname.includes("playgrounds")
+              ? `/dashboard/playgrounds/${data.id}/edit`
+              : `/dashboard/stores/${data.id}/edit`
+          }
           deleteAction={(oncloseModal) => deleteStore(data.id, oncloseModal)}
           isDeleting={isPending}
           extraComponent={

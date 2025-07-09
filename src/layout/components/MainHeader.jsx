@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import UserWelcoming from "./UserWelcoming";
 import { Flex, PageTitle } from "../../styles/generalStyles";
 import Logo from "../../components/Logo";
+import NotificationIcon from "./NotificationIcon";
 // import NotificationIcon from "./NotificationIcon";
 // import { useLocation } from "react-router";
 // import SecondHeader from "../../../components/SecondHeader";
@@ -38,7 +39,7 @@ const HeaderWrapper = styled.header`
 
 const UserAndNotificationIconContainer = styled.div`
   display: flex;
-  gap: 0.1rem;
+  gap: 5px;
   align-items: center;
 `;
 
@@ -72,7 +73,7 @@ const MainHeader = ({ pageTitle }) => {
           <PageTitle>Core Fit</PageTitle>
         </Flex>
         <UserAndNotificationIconContainer>
-          {/* <NotificationIcon /> */}
+          <NotificationIcon />
           <UserWelcoming />
         </UserAndNotificationIconContainer>
       </Flex>

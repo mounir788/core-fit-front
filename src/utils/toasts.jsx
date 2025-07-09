@@ -14,6 +14,8 @@ export const showErrorToast = (error) => {
       message={
         error?.response?.status === 422
           ? Object.entries(error?.response?.data).map(([key, value]) => value)
+          : typeof error === "string"
+          ? error
           : "Something went wrong. We couldn't process your request. Please try again."
       }
     />,

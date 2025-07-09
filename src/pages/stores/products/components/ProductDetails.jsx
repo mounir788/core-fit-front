@@ -39,7 +39,7 @@ const ProductDetails = ({ data, isLoading }) => {
     ["products"],
   ]);
   const { mutate: hideProduct, isPending: isHiding } = useUpdateField(
-    `/products/change_status?id=${data?.id}`,
+    `/products/change_status?id=${data?.Product?.id}`,
     [["products"], ["single-product"]]
   );
 
@@ -141,19 +141,22 @@ const ProductDetails = ({ data, isLoading }) => {
     </Flex>
   ) : (
     <Flex $direction="column" $gap={10}>
-      <Title>{data?.name}</Title>
+      <Title>{data?.Product?.name}</Title>
       <Category>{data?.subCategory?.name}</Category>
-      <Description>{data?.description}</Description>
+      <Description>{data?.Product?.description}</Description>
       <Flex $align="center" $gap={30}>
         <Price>
-          {(data.price - (data.price * data.offer) / 100).toFixed(2)}{" "}
+          {(
+            data.Product?.price -
+            (data.Product?.price * data.Product?.offer) / 100
+          ).toFixed(2)}{" "}
           <Currency>L.E</Currency>
         </Price>
-        {data.offer !== 0 && (
+        {data.Product?.offer !== 0 && (
           <Flex $align={"center"} $gap={10}>
-            <Offer>{data.price} L.E</Offer>
+            <Offer>{data.Product?.price} L.E</Offer>
             <Discount>
-              {data?.offer}% <span>Discount</span>
+              {data?.Product?.offer}% <span>Discount</span>
             </Discount>
           </Flex>
         )}
@@ -181,25 +184,31 @@ const ProductDetails = ({ data, isLoading }) => {
             startIcon={<TbEdit />}
             variant="filled"
             onClick={() =>
-              navigate(`/dashboard/stores/${storeId}/products/${data.id}/edit`)
+              navigate(
+                `/dashboard/stores/${storeId}/products/${data.Product?.id}/edit`
+              )
             }
           />
           <Modal.Open opens="hideProduct">
             <MainButton
-              title={data.hidden ? "Show" : "Hide"}
-              startIcon={data.hidden ? <PiEyeLight /> : <PiEyeSlashLight />}
+              title={data.Product?.hidden ? "Show" : "Hide"}
+              startIcon={
+                data.Product?.hidden ? <PiEyeLight /> : <PiEyeSlashLight />
+              }
             />
           </Modal.Open>
 
           <Modal.Window name={"hideProduct"}>
             <ConfirmMessage
-              messagTitle={data.hidden ? "Show Product" : "Hide Product"}
-              message={
-                data.hidden
-                  ? `Show (${data.name}) in products`
-                  : `Hide (${data.name}) from products`
+              messagTitle={
+                data.Product?.hidden ? "Show Product" : "Hide Product"
               }
-              acceptButtonLabel={data.hidden ? "Show" : "Hide"}
+              message={
+                data.Product?.hidden
+                  ? `Show (${data.Product?.name}) in products`
+                  : `Hide (${data.Product?.name}) from products`
+              }
+              acceptButtonLabel={data.Product?.hidden ? "Show" : "Hide"}
               action={(onCloseModal) => toggleHidProduct(onCloseModal)}
               isLoading={isHiding}
               cancelButtonLabel={"Cancel"}
@@ -209,7 +218,7 @@ const ProductDetails = ({ data, isLoading }) => {
             <DeleteMessage
               isLoading={isPending}
               deleteAction={(onCloseModal) =>
-                deleteProduct(data?.id, onCloseModal)
+                deleteProduct(data?.Product?.id, onCloseModal)
               }
             />
           </Modal.Window>

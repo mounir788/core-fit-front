@@ -14,11 +14,16 @@ const ProductFormPage = ({ isEditForm = false }) => {
   return (
     <BoxContainer>
       <PopupFormTitle>
-        {isEditForm ? `Update Product (${data?.data?.name})` : "Add Product"}
+        {isEditForm
+          ? `Update Product (${data?.data?.Product?.name})`
+          : "Add Product"}
       </PopupFormTitle>
 
       {!isLoading && !isError && (
-        <ProductForm isEditForm={isEditForm} defaultData={data?.data} />
+        <ProductForm
+          isEditForm={isEditForm}
+          defaultData={data?.data?.Product}
+        />
       )}
 
       <PageContentLoader isLoading={isLoading} isError={isError} />

@@ -45,6 +45,9 @@ const TheInput = styled.input`
   &::placeholder {
     color: var(--gray400);
   }
+  &:disabled {
+    background: var(--gray200);
+  }
 
   font-weight: ${(props) => {
     return props.$isfontbold ? "600" : "400";
@@ -177,6 +180,7 @@ const BasicInput = ({
             $isfontbold={isfontbold}
             $isPasswordInput={isPasswordInput}
             type={!showPassword ? "password" : "text"}
+            autoComplete="off"
             {...registering}
             {...props}
           />
@@ -190,7 +194,7 @@ const BasicInput = ({
           </EyeContainer>
         </PasswordInputContainer>
       ) : isTimeInput ? (
-        <ResponsiveTimePickers {...props} />
+        <ResponsiveTimePickers error={error} {...props} />
       ) : isDateInput ? (
         <BasicDatePicker {...props} />
       ) : !isTextArea ? (

@@ -12,6 +12,7 @@ import DeleteMessage from "../../../components/DeleteMessage";
 import ConfirmMessage from "../../../components/ConfirmMessage";
 import MainButton from "../../../components/MainButton";
 import RatingStars from "../../../components/RatingStars";
+import dayjs from "dayjs";
 
 const Title = styled.h1`
   font-size: 40px;
@@ -28,11 +29,11 @@ const Description = styled.p`
 
 const PlaygroundDetails = ({ data, isLoading }) => {
   const navigate = useNavigate();
-  const { mutate, isPending } = useDelete("/playgrounds/delete_playground", [
+  const { mutate, isPending } = useDelete("/playground/delete", [
     ["playgrounds"],
   ]);
   const { mutate: closePlayground, isPending: isHiding } = useUpdateField(
-    `/playgrounds/change_status?id=${data?.id}`,
+    `/playground/change_status?playgroundId=${data?.id}`,
     [["playgrounds"], ["single-playground"]]
   );
 
@@ -135,27 +136,45 @@ const PlaygroundDetails = ({ data, isLoading }) => {
   ) : (
     <Flex $direction="column" $gap={10}>
       <Title>{data?.name}</Title>
-      <Category>{data?.subCategory?.name}</Category>
-      <Description>{data?.description}</Description>
+      <Description>{data.description}</Description>
+
+      {/* City */}
+      <Category>📍 City: {data.city.name}</Category>
+
+      {/* Address */}
+      <Description>📌 Address: {data.address}</Description>
+
+      {/* Shifts */}
+      <Flex $direction="column" $gap={6}>
+        <Description>
+          🕒 Morning Shift:{" "}
+          {dayjs(`2025-01-01T${data?.morningShiftStart}`).format("h:mm A")} →{" "}
+          {dayjs(`2025-01-01T${data?.morningShiftEnd}`).format("h:mm A")}
+        </Description>
+        <Description>
+          🌙 Night Shift:{" "}
+          {dayjs(`2025-01-01T${data?.nightShiftStart}`).format("h:mm A")} →{" "}
+          {dayjs(`2025-01-01T${data?.nightShiftEnd}`).format("h:mm A")}
+        </Description>
+      </Flex>
+
+      {/* Booking price */}
+      <Description>💰 Booking Price: {data?.bookingPrice} EGP</Description>
+
+      {/* Status */}
+      <Description
+        style={{ color: data.opened ? "green" : "red", fontWeight: "bold" }}
+      >
+        {data.opened ? "✅ Open" : "⛔ Closed"}
+      </Description>
+
+      {/* Rating */}
       <RatingStars
         ratingValue={data?.avgRate}
         numberOfRatings={data?.rateCount || 0}
       />
 
-      {/* <Flex $align="center" $gap={30}>
-        <Price>
-          {(data.price - (data.price * data.offer) / 100).toFixed(2)}{" "}
-          <Currency>L.E</Currency>
-        </Price>
-        {data.offer !== 0 && (
-          <Flex $align={"center"} $gap={10}>
-            <Offer>{data.price} L.E</Offer>
-            <Discount>
-              {data?.offer}% <span>Discount</span>
-            </Discount>
-          </Flex>
-        )}
-      </Flex> */}
+      {/* Actions */}
       <Flex
         $align="center"
         $gap={10}

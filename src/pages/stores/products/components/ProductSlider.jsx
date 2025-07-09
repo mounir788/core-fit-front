@@ -1,6 +1,7 @@
 import { Skeleton } from "@mui/material";
 import GallerySlider from "../../../../components/GallerySlider";
 import { Flex, Grid } from "../../../../styles/generalStyles";
+import { css } from "styled-components";
 
 const ProductSlider = ({ images, isLoading }) => {
   return isLoading ? (

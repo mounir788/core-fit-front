@@ -96,11 +96,7 @@ const LoginForm = () => {
             error={errors?.password?.message}
             style={{ background: "var(--gray100)" }}
           />
-          <Flex $justify="space-between" $align="center">
-            <RemberMeCheckboxLabel>
-              <input type="checkbox" {...register("rememberMe")} />
-              <p>{"Remember me"}</p>
-            </RemberMeCheckboxLabel>
+          <Flex $justify="flex-end" $align="center">
             <TextLink to={"/login/resetPassword"}>
               Forget your password?
             </TextLink>

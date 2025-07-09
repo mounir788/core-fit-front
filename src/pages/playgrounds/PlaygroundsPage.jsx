@@ -1,8 +1,12 @@
 import AddButton from "../../components/AddButton";
+import Pagination from "../../components/Pagination";
+import useGetAllPlaygrounds from "../../hooks/playgrounds/useGetAllPlaygrounds";
 import { Flex } from "../../styles/generalStyles";
 import PageContent from "./components/PageContent";
 
 const PlaygroundsPage = () => {
+  const { data, isLoading, isError } = useGetAllPlaygrounds();
+
   return (
     <Flex $direction="column" $gap={16}>
       <Flex $justify="space-between" $gap={30} $align="center">
@@ -12,7 +16,8 @@ const PlaygroundsPage = () => {
           link={`/dashboard/playgrounds/add`}
         />
       </Flex>
-      <PageContent />
+      <PageContent isLoading={isLoading} isError={isError} data={data} />
+      <Pagination totalPages={data?.data?.totalPages || 1} />
     </Flex>
   );
 };

@@ -16,6 +16,9 @@ import SingleOrderPage from "../pages/stores/orders/components/SingleOrderPage";
 import ProfilePage from "../pages/my-profile/ProfilePage";
 import PlaygroundsPage from "../pages/playgrounds/PlaygroundsPage";
 import SinglePlaygroundPage from "../pages/playgrounds/components/SinglePlaygroundPage";
+import PlaygroundFormPage from "../pages/playgrounds/components/PlaygroundFormPage";
+import ForgetPasswordPage from "../pages/auth/ForgetPasswordPage";
+import WalletPage from "../pages/wallet/WalletPage";
 
 const AppRoutes = () => {
   return (
@@ -24,8 +27,8 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<CanRegisterPage />} />
         <Route path="/register/new-user" element={<RegisterPage />} />
-        {/* <Route path="/login/resetPassword" element={<ResetPasswordPage />} />
-        <Route path="/reset" element={<ResetPasswordFormPage />} /> */}
+        <Route path="/login/resetPassword" element={<ForgetPasswordPage />} />
+        {/* <Route path="/reset" element={<ResetPasswordFormPage />} /> */}
         <Route path="/" element={<HomePage />} />
         <Route
           path="/dashboard"
@@ -77,9 +80,10 @@ const AppRoutes = () => {
           />
           <Route
             path="playgrounds/:playgroundId/edit"
-            element={<SingleOrderPage />}
+            element={<PlaygroundFormPage isEditForm />}
           />
-          <Route path="playgrounds/add" element={<SingleOrderPage />} />
+          <Route path="playgrounds/add" element={<PlaygroundFormPage />} />
+          <Route path="wallet" element={<WalletPage />} />
         </Route>
       </Routes>
     </>

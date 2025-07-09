@@ -41,7 +41,12 @@ const MapInput = ({
 
   return (
     <div
-      style={{ gridColumn: "1 / -1", borderRadius: "8px", overflow: "hidden" }}
+      style={{
+        gridColumn: "1 / -1",
+        borderRadius: "8px",
+        overflow: "hidden",
+        zIndex: 0,
+      }}
     >
       <MapContainer
         center={defaultPosition} // Default to Dubai

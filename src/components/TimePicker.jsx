@@ -5,12 +5,15 @@ import { ThemeProvider } from "@mui/material";
 import { IoTimeOutline } from "react-icons/io5";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import { convertTo24HourFormat } from "../utils/formatDate";
 import dayjs from "dayjs";
 import { theme } from "./PickersTheme";
 import { Box } from "../styles/generalStyles";
 
-export default function ResponsiveTimePickers({ onChange, defaultValue }) {
+export default function ResponsiveTimePickers({
+  onChange,
+  defaultValue,
+  error,
+}) {
   return (
     <Box>
       <ThemeProvider theme={theme}>
@@ -27,28 +30,28 @@ export default function ResponsiveTimePickers({ onChange, defaultValue }) {
                 },
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
-                    borderColor: "var(--gray300)", // Customize border color
+                    borderColor: error ? "var(--buttonRed)" : "var(--gray300)", // Customize border color
                     borderRadius: "6px",
                   },
                   "&:hover fieldset": {
                     borderColor: "var(--gray300)", // Customize hover border color
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "black", // Customize focused border color
-                  },
+                  // "&.Mui-focused fieldset": {
+                  //   borderColor: "black", // Customize focused border color
+                  // },
                 },
               }}
               slotProps={{
-                textField: { placeholder: "-- : --  --" },
+                textField: { placeholder: "-- : --" },
                 openPickerIcon: IoTimeOutline,
               }}
               viewRenderers={{
                 hours: renderTimeViewClock,
                 minutes: renderTimeViewClock,
-                seconds: renderTimeViewClock,
+                // seconds: renderTimeViewClock,
               }}
               onChange={(value) => {
-                onChange(convertTo24HourFormat(value.$d.toLocaleTimeString()));
+                onChange(dayjs(value).format("HH:mm"));
               }}
             />
           </DemoContainer>

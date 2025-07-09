@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 export const convertTo24HourFormat = (time) => {
   // Parse the time using dayjs, handling AM/PM format
@@ -33,3 +34,18 @@ export const formatTime = (dateString, locale = "en") => {
     hour12: true,
   }).format(date);
 };
+
+dayjs.extend(relativeTime);
+
+export function formatNotificationTime(dateString) {
+  const date = dayjs(dateString);
+  const now = dayjs();
+
+  // If less than 24 hours → show relative
+  if (now.diff(date, "hour") < 24) {
+    return date.fromNow(); // eg: "5 minutes ago"
+  }
+
+  // Else → show formatted date
+  return date.format("DD MMMM, YYYY . hh:mm A");
+}

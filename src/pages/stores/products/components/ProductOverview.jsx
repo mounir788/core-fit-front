@@ -8,13 +8,16 @@ const ProductOverview = ({ data, isLoading }) => {
     <Grid
       $cols={"40% 1fr"}
       $customeStyle={css`
-        @media (width <= 992px) {
-          grid-template-columns: 1fr;
+        @media (width <= 768px) {
+          display: flex;
+          flex-direction: column;
         }
       `}
     >
       <ProductSlider
-        images={data?.images?.length > 0 ? data?.images : [""]}
+        images={
+          data?.Product?.images?.length > 0 ? data?.Product?.images : [""]
+        }
         isLoading={isLoading}
       />
 

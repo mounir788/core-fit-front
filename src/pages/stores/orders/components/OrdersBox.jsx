@@ -30,7 +30,13 @@ const OrdersBox = ({ data }) => {
   return (
     <IndicatorBoxContainer
       $hasNewOrders={data?.length > 0 && "true"}
-      onClick={() => navigate(`/dashboard/stores/${storeId}/orders`)}
+      onClick={() =>
+        navigate(
+          `/dashboard/stores/${storeId}/orders?status=${
+            data?.length > 0 ? "new" : "current"
+          }`
+        )
+      }
     >
       {data?.length > 0 && <OrdersCount>{data?.length}</OrdersCount>}
       <img src={"/orders.svg"} alt="orders" />

@@ -1,11 +1,8 @@
 import Card from "../../../components/Card";
 import PageContentLoader from "../../../components/PageContentLoader";
-import useGetAllPlaygrounds from "../../../hooks/playgrounds/useGetAllPlaygrounds";
 import { Grid } from "../../../styles/generalStyles";
 
-const PageContent = () => {
-  const { data, isLoading, isError } = useGetAllPlaygrounds();
-
+const PageContent = ({ isLoading, isError, data }) => {
   return (
     <Grid $cols="repeat(auto-fill, minmax(300px, 1fr))">
       {!isLoading &&
