@@ -2,8 +2,10 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { FaEnvelope } from "react-icons/fa";
+import { HiTrash } from "react-icons/hi"; // Example delete icon
 import { Flex } from "../../styles/generalStyles";
 import { formatNotificationTime } from "../../utils/formatDate";
+import useDelete from "../../hooks/general/useDelete";
 
 const Container = styled.div`
   padding-inline: 0.625rem;
@@ -18,15 +20,50 @@ const Container = styled.div`
   }
 `;
 
-const IconContainer = styled.div`
+/* Flip container */
+const FlipContainer = styled.div`
+  perspective: 1000px;
   width: 40px;
   height: 40px;
+  flex-shrink: 0;
+
+  &:hover {
+    & > div {
+      transform: rotateY(180deg);
+    }
+  }
+`;
+
+/* Common face styles */
+const Face = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  backface-visibility: hidden;
   display: grid;
   place-content: center;
-  background: var(--mainColor);
   color: white;
-  border-radius: 50%;
-  flex-shrink: 0;
+`;
+
+/* Front icon face */
+const FrontFace = styled(Face)`
+  background: var(--mainColor);
+`;
+
+/* Back delete icon face */
+const BackFace = styled(Face)`
+  background: var(--buttonRed);
+  transform: rotateY(180deg);
+`;
+
+/* Inner flip card container */
+const Flipper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
 `;
 
 const Title = styled.h6`
@@ -60,6 +97,9 @@ const Time = styled.span`
 
 const NotificationBlock = ({ data }) => {
   const [isMessageExpanded, setIsMessageExpanded] = useState(false);
+  const { mutate, isPending } = useDelete(`/notifications/${data.id}`, [
+    ["notifications"],
+  ]);
 
   return (
     <Container
@@ -67,9 +107,17 @@ const NotificationBlock = ({ data }) => {
       onClick={() => setIsMessageExpanded(!isMessageExpanded)}
     >
       <Flex $gap={10}>
-        <IconContainer>
-          <FaEnvelope />
-        </IconContainer>
+        <FlipContainer>
+          <Flipper>
+            <FrontFace>
+              <FaEnvelope />
+            </FrontFace>
+            <BackFace onClick={() => mutate(null)}>
+              <HiTrash />
+            </BackFace>
+          </Flipper>
+        </FlipContainer>
+
         <Flex $direction="column" $gap={4}>
           <Title>{data?.title}</Title>
 

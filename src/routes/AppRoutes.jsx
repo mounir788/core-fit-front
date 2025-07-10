@@ -19,6 +19,7 @@ import SinglePlaygroundPage from "../pages/playgrounds/components/SinglePlaygrou
 import PlaygroundFormPage from "../pages/playgrounds/components/PlaygroundFormPage";
 import ForgetPasswordPage from "../pages/auth/ForgetPasswordPage";
 import WalletPage from "../pages/wallet/WalletPage";
+import ReservationsPage from "../pages/playgrounds/components/ReservationsPage";
 
 const AppRoutes = () => {
   return (
@@ -77,6 +78,10 @@ const AppRoutes = () => {
           <Route
             path="playgrounds/:playgroundId"
             element={<SinglePlaygroundPage />}
+          />
+          <Route
+            path="playgrounds/:playgroundId/reservations"
+            element={<ReservationsPage />}
           />
           <Route
             path="playgrounds/:playgroundId/edit"

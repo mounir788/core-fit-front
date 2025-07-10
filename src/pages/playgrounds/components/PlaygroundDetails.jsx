@@ -13,6 +13,7 @@ import ConfirmMessage from "../../../components/ConfirmMessage";
 import MainButton from "../../../components/MainButton";
 import RatingStars from "../../../components/RatingStars";
 import dayjs from "dayjs";
+import { FaRegCalendarCheck } from "react-icons/fa";
 
 const Title = styled.h1`
   font-size: 40px;
@@ -166,6 +167,15 @@ const PlaygroundDetails = ({ data, isLoading }) => {
         style={{ color: data.opened ? "green" : "red", fontWeight: "bold" }}
       >
         {data.opened ? "✅ Open" : "⛔ Closed"}
+      </Description>
+      <Description>
+        <FaRegCalendarCheck />{" "}
+        <a
+          href={`/dashboard/playgrounds/${data.id}/reservations`}
+          style={{ textDecoration: "underline", color: "var(--mainColor)" }}
+        >
+          Resrvations
+        </a>
       </Description>
 
       {/* Rating */}

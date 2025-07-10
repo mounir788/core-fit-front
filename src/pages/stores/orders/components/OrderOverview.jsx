@@ -10,6 +10,8 @@ import ProductCard from "../../products/components/ProductCard";
 import MainButton from "../../../../components/MainButton";
 import { formatTime, getOnlyDate } from "../../../../utils/formatDate";
 import useCreateField from "../../../../hooks/general/useCreateField";
+import Progressbar from "./Progressbar";
+import { useState } from "react";
 
 const Name = styled.span`
   font-weight: 400;
@@ -25,18 +27,60 @@ const Text = styled.span`
   color: var(--dark);
 `;
 
+const NextButton = styled.button`
+  margin-top: 20px;
+  margin-left: auto;
+  padding: 8px 16px;
+  background: var(--mainColor);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:disabled {
+    background: var(--gray300);
+    cursor: not-allowed;
+  }
+`;
+
+const steps = [
+  { value: "ORDER_CONFIRMED", server: "confirmed", index: 0 },
+  { value: "ORDER_UNDER_PREPARATION", server: "under_prep", index: 1 },
+  { value: "ORDER_UNDER_DELIVERY", server: "under_deliver", index: 2 },
+  { value: "ORDER_DELIVERED", server: "delivered", index: 3 },
+];
+
 const OrderOverview = ({ data }) => {
+  const [currentStep, setCurrentStep] = useState(
+    steps.find((step) => step.value === data.status) || steps[0]
+  );
   const { mutate, isPending } = useCreateField("/change_status", [
     ["single-order", data.id],
     ["orders"],
   ]);
 
-  const changeStatus = (status) => {
+  const changeStatus = () => {
     mutate({
       orderId: data.id,
-      status,
-      FcmToken: localStorage.getItem("firebase_token"),
+      status: currentStep.server,
     });
+  };
+
+  const handleNext = () => {
+    if (currentStep.index < steps.length - 1) {
+      const nextStep = steps[currentStep.index + 1];
+      mutate(
+        {
+          orderId: data.id,
+          status: nextStep.server,
+        },
+        {
+          onSuccess: () => {
+            setCurrentStep(nextStep);
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -71,6 +115,10 @@ const OrderOverview = ({ data }) => {
             }
           `}
         >
+          {data.status !== "ORDER_CANCELED" &&
+            data.status !== "ORDER_RECEIVED" && (
+              <Progressbar steps={steps} currentStep={currentStep} />
+            )}
           <Flex
             $gap={12}
             $align="center"
@@ -87,7 +135,6 @@ const OrderOverview = ({ data }) => {
               <OrderStatus>Completed</OrderStatus>
             )}
           </Flex>
-
           <Flex $gap={12} $align="center">
             <img src="/person-green.svg" alt={data.clientName} />
             <Flex $direction="column">
@@ -123,6 +170,16 @@ const OrderOverview = ({ data }) => {
               <Text>{data.additionalInfo}</Text>
             </Flex>
           </Flex>
+          {data.status !== "ORDER_CANCELED" &&
+            data.status !== "ORDER_DELIVERED" &&
+            data.status !== "ORDER_RECEIVED" && (
+              <NextButton
+                onClick={handleNext}
+                disabled={isPending || currentStep.index >= steps.length - 1}
+              >
+                Update Status
+              </NextButton>
+            )}
         </IndicatorBoxContainer>
         <IndicatorBoxContainer
           $background="white"
@@ -168,6 +225,7 @@ const OrderOverview = ({ data }) => {
               <strong>{data.totalPrice}</strong> L.E
             </span>
           </Flex>
+
           {data.status === "ORDER_RECEIVED" && (
             <Flex $width="100%" $align="center" $gap={8}>
               <MainButton

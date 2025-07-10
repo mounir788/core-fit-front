@@ -93,3 +93,8 @@ a {
   font-weight: 700;
   color: var(--mainColor);
 }
+
+.fc .fc-button {
+  background: var(--mainColor);
+  border-color: var(--mainColor);
+}
