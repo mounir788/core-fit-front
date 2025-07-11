@@ -16,7 +16,7 @@ import useGetGovernrates from "../../../hooks/auth/useGetGovernrates";
 import useGetCities from "../../../hooks/auth/useGetCities";
 import { useState } from "react";
 import { css } from "styled-components";
-import BasicCheckBox from "../../../components/BasicCheckbox";
+import CheckBoxInput from "../../../components/CheckBoxInput";
 
 const PlaygroundForm = ({ isEditForm = false, defaultData = {} }) => {
   const [governrateId, setGovernrateId] = useState(null);
@@ -196,7 +196,7 @@ const PlaygroundForm = ({ isEditForm = false, defaultData = {} }) => {
             name="hasExtraPrice"
             control={control}
             render={({ field }) => (
-              <BasicCheckBox
+              <CheckBoxInput
                 id="hasExtraPrice"
                 style={{ margin: "auto" }}
                 {...field}
@@ -306,7 +306,7 @@ const PlaygroundForm = ({ isEditForm = false, defaultData = {} }) => {
             name="passwordEnabled"
             control={control}
             render={({ field }) => (
-              <BasicCheckBox
+              <CheckBoxInput
                 id="passwordEnabled"
                 {...field}
                 defaultChecked={defaultData?.passwordEnabled}
