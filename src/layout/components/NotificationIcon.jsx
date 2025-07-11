@@ -57,7 +57,7 @@ const NotificationIcon = () => {
         onClick={handleToggleMenu}
         $has_new_notifications={data?.data || 0}
         data-count={
-          isLoading || isError ? 0 : data?.data > 10 ? "" : data?.data
+          isLoading || isError ? 0 : data?.data > 99 ? "" : data?.data
         }
       >
         <IoNotifications size={22} color="var(--mainColor)" />

@@ -20,6 +20,8 @@ import PlaygroundFormPage from "../pages/playgrounds/components/PlaygroundFormPa
 import ForgetPasswordPage from "../pages/auth/ForgetPasswordPage";
 import WalletPage from "../pages/wallet/WalletPage";
 import ReservationsPage from "../pages/playgrounds/components/ReservationsPage";
+import Dashboard from "../pages/dashboard/Dashboard";
+import ProfileFormPage from "../pages/my-profile/components/ProfileFormPage";
 
 const AppRoutes = () => {
   return (
@@ -39,8 +41,12 @@ const AppRoutes = () => {
             </AuthenticatorRoute>
           }
         >
+          {/* Dashboard */}
+          <Route path="" element={<Dashboard />} />
+
           {/* Profile Settings */}
           <Route path="my-profile" element={<ProfilePage />} />
+          <Route path="my-profile/edit" element={<ProfileFormPage />} />
 
           {/* Stores */}
           <Route path="stores" element={<StoresPage />} />

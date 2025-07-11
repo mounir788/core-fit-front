@@ -22,6 +22,7 @@ const ImageLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 const PreviewImage = styled.img`
@@ -35,6 +36,7 @@ const HiddenInput = styled.input`
 `;
 
 const Placeholder = styled.span`
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,14 +60,12 @@ const ProfileImageInput = ({ name, error, setValue, defaultImage, radius }) => {
   return (
     <Container>
       <ImageLabel htmlFor={name} $radius={radius}>
-        {preview ? (
-          <PreviewImage src={preview} alt="Profile Preview" />
-        ) : (
-          <Placeholder>
-            <LuUpload />
-            Upload
-          </Placeholder>
-        )}
+        {preview && <PreviewImage src={preview} alt="Profile Preview" />}
+
+        <Placeholder>
+          <LuUpload />
+          Upload
+        </Placeholder>
       </ImageLabel>
       <HiddenInput
         id={name}

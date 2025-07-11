@@ -13,7 +13,11 @@ import timezone from "dayjs/plugin/timezone"; // Import the timezone plugin
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export default function BasicDatePicker({ onChange, defaultValue }) {
+export default function BasicDatePicker({
+  onChange,
+  defaultValue,
+  background,
+}) {
   // Parse the ISO defaultValue (2026-09-18T21:00:00+03:00) into a dayjs object
   const parsedDefaultValue = defaultValue
     ? dayjs(defaultValue).local() // Use local timezone for defaultValue
@@ -46,7 +50,7 @@ export default function BasicDatePicker({ onChange, defaultValue }) {
                 },
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "8px",
-                  background: "var(--gray100)",
+                  background: background || "var(--gray100)",
                   "& fieldset": {
                     borderColor: "var(--gray300)", // Customize border color
                     borderRadius: "8px",
