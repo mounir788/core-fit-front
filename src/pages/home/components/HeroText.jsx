@@ -15,6 +15,10 @@ const Box = styled.div`
   /* & h1 {
     max-width: 250px;
   } */
+
+  @media (max-width: 600px) {
+    bottom: 50px;
+  }
 `;
 
 const Text = styled.p`

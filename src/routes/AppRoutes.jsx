@@ -22,6 +22,8 @@ import WalletPage from "../pages/wallet/WalletPage";
 import ReservationsPage from "../pages/playgrounds/components/ReservationsPage";
 import Dashboard from "../pages/dashboard/Dashboard";
 import ProfileFormPage from "../pages/my-profile/components/ProfileFormPage";
+import PrivacyPolicy from "../pages/legal/PrivacyPolicy";
+import TermsAndConditions from "../pages/legal/TermsAndConditions";
 
 const AppRoutes = () => {
   return (
@@ -33,6 +35,8 @@ const AppRoutes = () => {
         <Route path="/login/resetPassword" element={<ForgetPasswordPage />} />
         {/* <Route path="/reset" element={<ResetPasswordFormPage />} /> */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
         <Route
           path="/dashboard"
           element={

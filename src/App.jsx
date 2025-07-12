@@ -37,13 +37,14 @@ function App() {
         reverseOrder={false}
         gutter={8}
         containerClassName=""
-        containerStyle={{}}
+        containerStyle={{ zIndex: 9999 }}
         toastOptions={{
           // Define default options
           className: "",
           // duration: 10000,
           style: {
             minWidth: "350px",
+            zIndex: 9999,
           },
         }}
       />

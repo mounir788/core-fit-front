@@ -15,18 +15,16 @@ import { useState } from "react";
 import ProfileImageInput from "../../../components/ProfileImageInput";
 import { genderOptions } from "../../../constants/constants";
 import { validateBirthDate } from "../../../validation/someContantValidations";
+import { useNavigate } from "react-router";
 
 const ProfileForm = ({ defaultData = {} }) => {
+  const [governrateId, setGovernrateId] = useState(defaultData.governmentId);
   const { data: governorates } = useGetGovernrates();
+  const { data: cities } = useGetCities(governrateId);
 
   const governratesList = governorates?.data?.governorates?.map((item) => {
     return { value: item.id, label: item.name };
   });
-  const [governrateId, setGovernrateId] = useState(
-    governratesList?.find((gov) => gov?.label === defaultData.governorate)
-      ?.value
-  );
-  const { data: cities } = useGetCities(governrateId);
 
   const citiesList = cities?.data?.cities?.map((item) => {
     return { value: item.id, label: item.name };
@@ -36,7 +34,7 @@ const ProfileForm = ({ defaultData = {} }) => {
     id: defaultData.id,
     username: defaultData.username,
     email: defaultData.email,
-    cityId: citiesList?.find((city) => city.label === defaultData.city)?.value,
+    cityId: defaultData.cityId,
     governorate: governrateId,
     phone: defaultData.phone,
     gender: defaultData.gender,
@@ -53,13 +51,18 @@ const ProfileForm = ({ defaultData = {} }) => {
     defaultValues: defaultValues,
   });
 
+  const navigate = useNavigate();
+
   const { mutate: updateProfile, isPending: isUpdating } = useCreateField(
     "/auth/edit_profile",
-    [["profile", defaultData.id]]
+    [["profile", String(defaultData.id)]],
+    "multipart/form-data"
   );
 
   const handleFormSubmittion = (formData) => {
-    updateProfile(formData);
+    updateProfile(formData, {
+      onSuccess: () => navigate("/dashboard/my-profile"),
+    });
   };
 
   return (
@@ -81,6 +84,15 @@ const ProfileForm = ({ defaultData = {} }) => {
           }}
         />
         <BasicInput
+          inputLabel={"User Name"}
+          inputPlaceHoleder={"username3849"}
+          isInputRequired
+          registering={register("username", {
+            required: "This field is required",
+          })}
+          error={errors?.username?.message}
+        />
+        <BasicInput
           inputLabel={"Email"}
           inputPlaceHoleder={"Enter your email address"}
           isInputRequired
@@ -93,15 +105,6 @@ const ProfileForm = ({ defaultData = {} }) => {
           })}
           type={"email"}
           error={errors?.email?.message}
-        />
-        <BasicInput
-          inputLabel={"User Name"}
-          inputPlaceHoleder={"username3849"}
-          isInputRequired
-          registering={register("username", {
-            required: "This field is required",
-          })}
-          error={errors?.username?.message}
         />
         <BasicInput
           inputLabel={"Phone"}
@@ -176,7 +179,7 @@ const ProfileForm = ({ defaultData = {} }) => {
             setGovernrateId(option.value);
           }}
           value={{
-            value: defaultValues.governorate,
+            value: defaultData.governmentId,
             label: defaultData.governorate,
           }}
         />
@@ -194,7 +197,7 @@ const ProfileForm = ({ defaultData = {} }) => {
                 field.onChange(option.value);
               }}
               value={{
-                value: defaultValues.cityId,
+                value: defaultData.cityId,
                 label: defaultData.city,
               }}
             />

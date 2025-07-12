@@ -4,6 +4,8 @@ import { Flex } from "../../../styles/generalStyles";
 import MainButton from "../../../components/MainButton";
 import useGetWalletBalance from "../../../hooks/wallet/useGetWalletBalance";
 import { Skeleton } from "@mui/material";
+import Modal from "../../../components/Modal";
+import WithdrawForm from "./WithdrawForm";
 
 const BalanceCard = styled.div`
   background: white;
@@ -13,18 +15,18 @@ const BalanceCard = styled.div`
   margin-bottom: 2rem;
   box-shadow: inset 0px 0px 115px #5abc5d78;
 
-  h2 {
+  & h2 {
     margin: 0 0 0.5rem;
     font-size: 1.2rem;
     font-weight: normal;
     color: #aaa;
   }
 
-  p {
+  /* & p {
     font-size: 2rem;
     font-weight: bold;
-  }
-  span {
+  } */
+  & span {
     font-size: 10px;
     margin-top: 1px;
   }
@@ -46,18 +48,25 @@ const WalletBalance = () => {
       )}
       {!isLoading && !isError && <p>{data?.data?.toFixed(2)} EGP</p>}
       <Flex $direction="column" $align="center">
-        <MainButton
-          variant="filled"
-          title={<TbArrowDownToArc size={22} />}
-          isDisabled={isLoading}
-          customStyle={css`
-            padding: 0;
-            min-width: 40px;
-            width: 40px;
-            height: 40px;
-            margin-top: 20px;
-          `}
-        ></MainButton>
+        <Modal>
+          <Modal.Open opens={"withdraw"}>
+            <MainButton
+              variant="filled"
+              title={<TbArrowDownToArc size={22} />}
+              isDisabled={isLoading}
+              customStyle={css`
+                padding: 0;
+                min-width: 40px;
+                width: 40px;
+                height: 40px;
+                margin-top: 20px;
+              `}
+            />
+          </Modal.Open>
+          <Modal.Window name={"withdraw"}>
+            <WithdrawForm maxAmount={data?.data || 0} />
+          </Modal.Window>
+        </Modal>
         <span>Withdraw</span>
       </Flex>
     </BalanceCard>

@@ -28,6 +28,7 @@ const Slider = styled.div`
 
   & img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
   }
   transition: margin-left 1s cubic-bezier(0.25, 0.1, 0.25, 1);

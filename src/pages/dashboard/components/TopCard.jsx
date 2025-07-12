@@ -9,7 +9,7 @@ const Card = styled.div`
   gap: 10px;
   padding: 20px;
   min-width: 250px;
-  height: fit-content;
+  min-height: fit-content;
   border-radius: 20px;
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -45,11 +45,7 @@ const Icon = styled.div`
   place-content: center;
 `;
 
-const TopCard = ({
-  title = "Total Orders",
-  number = 23,
-  increasingValue = 5,
-}) => {
+const TopCard = ({ title = "", number = 0, increasingValue = 0 }) => {
   return (
     <Card $increasing={increasingValue > 0}>
       <Flex $gap={10} $align="center" $justify="space-between">
@@ -64,7 +60,7 @@ const TopCard = ({
       </Flex>
       <Number>{number}</Number>
       <p>
-        {Math.abs(increasingValue)}{" "}
+        {Math.abs(increasingValue)}%{" "}
         {increasingValue > 0 ? "increased" : "decreased"} from last month
       </p>
     </Card>

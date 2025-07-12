@@ -13,6 +13,7 @@ const ButtonContainer = styled.button`
   background: var(--mainColor);
   color: #ffffff;
   cursor: pointer;
+
   &:hover {
     background: var(--darkBlue);
   }
@@ -23,10 +24,6 @@ const ButtonContainer = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-
-    p {
-      font-size: 1rem;
-    }
   }
 `;
 

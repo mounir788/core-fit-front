@@ -5,27 +5,7 @@ import HorizontalScrollWrapper from "../../components/HorizontalScrollWrapper";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 import useGetProfileData from "../../hooks/user/useGetProfileData";
-
-// ✅ Dummy Data
-const topProductsData = [
-  { id: 0, value: 120, label: "Football" },
-  { id: 1, value: 80, label: "Jersey" },
-  { id: 2, value: 65, label: "Shoes" },
-];
-
-const incomeComparisonData = [
-  { month: "Jan", storeIncome: 3000, reservationIncome: 1800 },
-  { month: "Feb", storeIncome: 3500, reservationIncome: 2000 },
-  { month: "Mar", storeIncome: 4000, reservationIncome: 2500 },
-  { month: "Apr", storeIncome: 4200, reservationIncome: 2800 },
-  { month: "May", storeIncome: 4600, reservationIncome: 3000 },
-  { month: "June", storeIncome: 4600, reservationIncome: 3000 },
-  { month: "July", storeIncome: 4600, reservationIncome: 3000 },
-  { month: "August", storeIncome: 4600, reservationIncome: 3000 },
-  { month: "Octobar", storeIncome: 4600, reservationIncome: 3000 },
-  { month: "November", storeIncome: 4600, reservationIncome: 3000 },
-  { month: "December", storeIncome: 4600, reservationIncome: 3000 },
-];
+import useGetstatistics from "../../hooks/dashboard/useGetstatistics";
 
 const WelcomeTitle = styled.h1`
   font-size: 36px;
@@ -55,16 +35,24 @@ const ChartTitle = styled.h2`
 
 const Dashboard = () => {
   const { data } = useGetProfileData();
+  const { data: statistics } = useGetstatistics();
+
   return (
     <Flex $direction="column" $gap={16}>
+      {/* User Name */}
       <WelcomeTitle>Welcome in, {data?.data?.username}!</WelcomeTitle>
+
+      {/* Top Cards */}
       <HorizontalScrollWrapper>
         <Flex $gap={16}>
-          <TopCard />
-          <TopCard increasingValue={-5} />
-          <TopCard />
-          <TopCard />
-          <TopCard />
+          {statistics?.data?.overview?.map((card) => (
+            <TopCard
+              key={card.id}
+              title={card.title}
+              number={card.count}
+              increasingValue={card.changeRate}
+            />
+          ))}
         </Flex>
       </HorizontalScrollWrapper>
 
@@ -76,7 +64,6 @@ const Dashboard = () => {
           }
         `}
       >
-        {" "}
         {/* ✅ Income Comparison (LineChart) */}
         <ChartCard>
           <ChartTitle>Income Comparison (Stores vs Reservations)</ChartTitle>
@@ -84,17 +71,23 @@ const Dashboard = () => {
             xAxis={[
               {
                 scaleType: "point",
-                data: incomeComparisonData.map((d) => d.month),
+                data:
+                  statistics?.data?.monthlyIncome?.map((d) => d.month) || [],
               },
             ]}
             series={[
               {
-                data: incomeComparisonData.map((d) => d.storeIncome),
+                data:
+                  statistics?.data?.monthlyIncome?.map((d) => d.storeIncome) ||
+                  [],
                 label: "Stores",
                 color: "#8884d8",
               },
               {
-                data: incomeComparisonData.map((d) => d.reservationIncome),
+                data:
+                  statistics?.data?.monthlyIncome?.map(
+                    (d) => d.reservationIncome
+                  ) || [],
                 label: "Reservations",
                 color: "#1a9d56",
               },
@@ -109,7 +102,7 @@ const Dashboard = () => {
           <PieChart
             series={[
               {
-                data: topProductsData,
+                data: statistics?.data?.topProducts || [],
                 innerRadius: 30,
                 outerRadius: 100,
                 paddingAngle: 5,
@@ -120,6 +113,7 @@ const Dashboard = () => {
                 cy: 150,
               },
             ]}
+            hideLegend={true}
             // width={300}
             height={300}
           />

@@ -132,6 +132,8 @@ export const Error = styled.p`
   ${L_reg_12s_12h}
   color: var(--buttonRed);
   /* margin-top: 8px; */
+  line-height: 1.5;
+  text-align: left;
 `;
 
 export const Box = styled.div`
@@ -158,6 +160,7 @@ export const MainContainer = styled.div`
   width: 100%;
   padding-inline: 1rem;
   margin: auto;
+  position: relative;
 `;
 
 export const Grid = styled.div`
@@ -447,6 +450,9 @@ export const PopupFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  @media only screen and (max-width: 992px) {
+    max-width: 90%;
+  }
   @media only screen and (max-width: 768px) {
     min-width: 390px;
   }
@@ -479,7 +485,7 @@ export const PopupFormInputsContainer = styled.div`
     direction: rtl;
   }
 
-  @media (width <= 991px) {
+  @media (width <= 768px) {
     grid-template-columns: 1fr;
   }
   ${({ $customeStyle }) => $customeStyle}
