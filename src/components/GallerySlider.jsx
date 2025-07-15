@@ -32,31 +32,36 @@ const Container = styled.div`
   }
 
   & .mySwiper {
-    height: 20%;
+    height: auto;
     box-sizing: border-box;
     padding: 10px 0;
   }
 
   & .mySwiper .swiper-slide {
-    width: 25%;
-    height: 100%;
+    width: auto;
+    height: 80px; /* ✅ Fixed height */
     opacity: 0.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   & .mySwiper .swiper-slide-thumb-active {
     opacity: 1;
   }
 
-  & .swiper-slide img {
+  & .mySwiper .swiper-slide img {
     display: block;
-    width: 100%;
     height: 100%;
-    object-fit: contain;
+    width: auto;
+    object-fit: cover; /* ✅ or 'contain' */
   }
 
   & .swiper-slide:hover .fullscreen-icon {
     opacity: 1;
   }
+
   & .swiper-button-next,
   & .swiper-button-prev {
     color: #fff;
@@ -89,7 +94,7 @@ const FullscreenOverlay = styled.div`
       }
 
       & .fullscreenThumbs {
-        height: 15%;
+        height: auto;
         margin-top: 20px;
         box-sizing: border-box;
         padding: 10px 0;
@@ -97,12 +102,22 @@ const FullscreenOverlay = styled.div`
 
       & .fullscreenThumbs .swiper-slide {
         width: 100px;
-        height: 100%;
+        height: 80px; /* ✅ Fixed height */
         opacity: 0.4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
       }
 
       & .fullscreenThumbs .swiper-slide-thumb-active {
         opacity: 1;
+      }
+
+      & .fullscreenThumbs .swiper-slide img {
+        height: 100%;
+        width: auto;
+        object-fit: cover; /* ✅ */
       }
 
       & .swiper-slide img {
